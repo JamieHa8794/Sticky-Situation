@@ -1,0 +1,7 @@
+.board-container {
+  padding: 2rem;
+}
+.column-container {
+  display: flex;
+  justify-content: space-between;
+}

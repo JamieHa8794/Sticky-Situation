@@ -1,7 +1,12 @@
 import './App.css';
+import Board from './components/Board';
 
 function App() {
-  return <div>Hello world</div>;
+  return (
+    <div>
+      <Board />
+    </div>
+  );
 }
 
 export default App;
