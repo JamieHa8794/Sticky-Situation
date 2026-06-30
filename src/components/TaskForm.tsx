@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../styles/TaskForm.css';
 
-import type { Task } from '../types/task';
+import type { Task, TaskStatus } from '../types/task';
 
 type CreateTaskProps = {
   tasks: Task[];
@@ -16,6 +16,9 @@ function TaskForm(props: CreateTaskProps) {
   const [title, setTitle] = useState(editTask ? editTask.title : '');
   const [description, setDescription] = useState(
     editTask ? editTask.description : '',
+  );
+  const [status, setStatus] = useState<TaskStatus>(
+    editTask ? editTask.status : 'todo',
   );
 
   function getEditTask() {
@@ -32,7 +35,7 @@ function TaskForm(props: CreateTaskProps) {
       id: editTask?.id || crypto.randomUUID(),
       title,
       description,
-      status: editTask?.status || 'todo',
+      status,
     };
     const type = editTask ? 'edit' : 'create';
     props.handleSubmitTask(task, type);
@@ -75,6 +78,17 @@ function TaskForm(props: CreateTaskProps) {
                 setDescription(e.target.value);
               }}
             ></input>
+          </div>
+          <div className="input-container">
+            <div className="input-label">Status</div>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value as TaskStatus)}
+            >
+              <option value={'todo'}>To Do</option>
+              <option value={'in-progress'}>In Progress</option>
+              <option value={'done'}>Done</option>
+            </select>
           </div>
           <button onClick={resetChanges}>Cancel</button>
           <button onClick={onSubmitTask}>
