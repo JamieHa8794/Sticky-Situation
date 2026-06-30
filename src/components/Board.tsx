@@ -15,7 +15,15 @@ function Board() {
     { id: 3, title: 'Done', status: 'done' },
   ];
 
-  const [tasks, setTasks] = useState<Task[]>(InitialTasks);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    const savedData = localStorage.getItem('tasks');
+    if (savedData) {
+      console.log(JSON.parse(savedData));
+      return JSON.parse(savedData);
+    }
+    return InitialTasks;
+  });
+
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null);
 
   function handleSubmitTask(task: Task, type: string) {
@@ -26,12 +34,16 @@ function Board() {
       description,
       status,
     };
+    let updatedTasks;
     if (type === 'create') {
-      setTasks([...tasks, newTask]);
+      updatedTasks = [...tasks, newTask];
+      setTasks(updatedTasks);
     } else if (type === 'edit') {
       const filteredTasks = tasks.filter((task) => task.id !== id);
-      setTasks([...filteredTasks, newTask]);
+      updatedTasks = [...filteredTasks, newTask];
+      setTasks(updatedTasks);
     }
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 
   function handleSetEditTask(id: string | null) {
@@ -40,7 +52,9 @@ function Board() {
 
   function handleDeleteTask(id: string | null) {
     const filteredTasks = tasks.filter((task) => task.id !== id);
-    setTasks([...filteredTasks]);
+    const updatedTasks = [...filteredTasks];
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 
   return (
