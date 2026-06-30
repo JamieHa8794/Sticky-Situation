@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Column from './Column';
-import CreateTask from './CreateTask';
+import TaskForm from './TaskForm';
 
 import type { Task } from '../types/task';
 import { tasks as InitialTasks } from '../data/tasks';
@@ -16,19 +16,37 @@ function Board() {
   ];
 
   const [tasks, setTasks] = useState<Task[]>(InitialTasks);
+  const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null);
 
-  function handleSubmitNewTask(title: string, description: string) {
+  function handleSubmitTask(task: Task, type: string) {
+    const { id, title, description, status } = task;
     const newTask: Task = {
-      id: crypto.randomUUID(),
+      id,
       title,
       description,
-      status: 'todo',
+      status,
     };
-    setTasks([...tasks, newTask]);
+    if (type === 'create') {
+      setTasks([...tasks, newTask]);
+    } else if (type === 'edit') {
+      const filteredTasks = tasks.filter((task) => task.id !== id);
+      setTasks([...filteredTasks, newTask]);
+    }
   }
+
+  function handleSetEditTask(id: string | null) {
+    setCurrentlyEditing(id);
+  }
+
   return (
     <div>
-      <CreateTask handleSubmitNewTask={handleSubmitNewTask} />
+      <TaskForm
+        key={currentlyEditing ?? 'create'}
+        tasks={tasks}
+        handleSubmitTask={handleSubmitTask}
+        currentlyEditing={currentlyEditing}
+        handleSetEditTask={handleSetEditTask}
+      />
       <div className="board-container">
         <div className="column-container">
           {columns.map((column) => {
@@ -40,6 +58,7 @@ function Board() {
                 key={column.id}
                 columnName={column.title}
                 tasks={columnTasks}
+                handleSetEditTask={handleSetEditTask}
               />
             );
           })}

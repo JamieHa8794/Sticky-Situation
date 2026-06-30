@@ -7,9 +7,11 @@ import '../styles/Column.css';
 type ColumnProps = {
   columnName: string;
   tasks: Task[];
+
+  handleSetEditTask: (id: string) => void;
 };
 
-function Column({ columnName, tasks }: ColumnProps) {
+function Column({ columnName, tasks, handleSetEditTask }: ColumnProps) {
   const hasNoTasks = tasks.length === 0;
 
   return (
@@ -23,7 +25,13 @@ function Column({ columnName, tasks }: ColumnProps) {
             <div className="empty-state-message">No Tasks Yet</div>
           ) : (
             tasks.map((task) => {
-              return <TaskCard key={task.id} task={task} />;
+              return (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  handleSetEditTask={handleSetEditTask}
+                />
+              );
             })
           )}
         </div>
