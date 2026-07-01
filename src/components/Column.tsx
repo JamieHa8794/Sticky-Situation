@@ -8,7 +8,7 @@ type ColumnProps = {
   columnName: string;
   tasks: Task[];
 
-  handleSetEditTask: (id: string) => void;
+  handleSetEditTask: (id: string | null) => void;
   handleDeleteTask: (id: string) => void;
 };
 

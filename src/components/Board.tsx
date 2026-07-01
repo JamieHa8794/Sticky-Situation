@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 import Column from './Column';
 import TaskForm from './TaskForm';
 
-import type { Task } from '../types/task';
+import type { Task, TaskAction } from '../types/task';
 import { tasks as InitialTasks } from '../data/tasks';
 
 import '../styles/Board.css';
@@ -15,16 +15,12 @@ function Board() {
     { id: 3, title: 'Done', status: 'done' },
   ];
 
-  const [tasks, setTasks] = useState<Task[]>(() => {
-    const savedData = localStorage.getItem('tasks');
-    if (savedData) {
-      console.log(JSON.parse(savedData));
-      return JSON.parse(savedData);
-    }
-    return InitialTasks;
-  });
-
+  const [tasks, dispatch] = useReducer(taskReducer, undefined, getInitialTasks);
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   function handleSubmitTask(task: Task, type: string) {
     const { id, title, description, status } = task;
@@ -34,27 +30,19 @@ function Board() {
       description,
       status,
     };
-    let updatedTasks;
     if (type === 'create') {
-      updatedTasks = [...tasks, newTask];
-      setTasks(updatedTasks);
+      dispatch({ type: 'ADD_TASK', payload: newTask });
     } else if (type === 'edit') {
-      const filteredTasks = tasks.filter((task) => task.id !== id);
-      updatedTasks = [...filteredTasks, newTask];
-      setTasks(updatedTasks);
+      dispatch({ type: 'UPDATE_TASK', payload: newTask });
     }
-    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 
   function handleSetEditTask(id: string | null) {
     setCurrentlyEditing(id);
   }
 
-  function handleDeleteTask(id: string | null) {
-    const filteredTasks = tasks.filter((task) => task.id !== id);
-    const updatedTasks = [...filteredTasks];
-    setTasks(updatedTasks);
-    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  function handleDeleteTask(id: string) {
+    dispatch({ type: 'DELETE_TASK', payload: id });
   }
 
   return (
@@ -87,4 +75,32 @@ function Board() {
     </div>
   );
 }
+
+function getInitialTasks() {
+  const savedData = localStorage.getItem('tasks');
+  if (savedData) {
+    return JSON.parse(savedData);
+  }
+  return InitialTasks;
+}
+
+function taskReducer(tasks: Task[], action: TaskAction) {
+  switch (action.type) {
+    case 'ADD_TASK':
+      return [...tasks, action.payload];
+    case 'UPDATE_TASK':
+      return tasks.map((task) => {
+        if (task.id === action.payload.id) {
+          return action.payload;
+        }
+        return task;
+      });
+    case 'DELETE_TASK':
+      return tasks.filter((task) => task.id !== action.payload);
+
+    default:
+      return tasks;
+  }
+}
+
 export default Board;
