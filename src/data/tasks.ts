@@ -7,6 +7,7 @@ export const tasks: Task[] = [
     description: 'Set up Vite and React',
     status: 'done',
     priority: 'medium',
+    dueDate: '2026-06-25',
   },
   {
     id: '2',
@@ -14,6 +15,7 @@ export const tasks: Task[] = [
     description: 'Render task information',
     status: 'done',
     priority: 'medium',
+    dueDate: '2026-07-2',
   },
   {
     id: '3',
@@ -21,6 +23,7 @@ export const tasks: Task[] = [
     description: 'Display tasks by status',
     status: 'todo',
     priority: 'medium',
+    dueDate: '2026-06-29',
   },
   {
     id: '4',
@@ -28,5 +31,6 @@ export const tasks: Task[] = [
     description: 'Render all columns',
     status: 'todo',
     priority: 'medium',
+    dueDate: null,
   },
 ];

@@ -1,3 +1,5 @@
+import { formatDateString, formatToProperCase } from '../utils';
+
 import type { Task } from '../types/task';
 
 import '../styles/TaskCard.css';
@@ -10,10 +12,14 @@ type TaskCardProps = {
 
 function TaskCard(props: TaskCardProps) {
   const {
-    task: { id, title, description, priority },
+    task: { id, title, description, priority, dueDate },
     handleSetEditTask,
     handleDeleteTask,
   } = props;
+
+  const formattedDueDate = formatDateString(dueDate);
+  const formattedPriority = formatToProperCase(priority);
+
   return (
     <div>
       <div className="card-container">
@@ -30,7 +36,8 @@ function TaskCard(props: TaskCardProps) {
         </div>
         <div className="card-body">
           <div>{description}</div>
-          <div>{priority}</div>
+          <div>{formattedPriority}</div>
+          <div>{formattedDueDate}</div>
         </div>
         <div className="card-footer">
           <button

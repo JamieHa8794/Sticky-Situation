@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import '../styles/TaskForm.css';
 
-import type { Task, TaskStatus, TaskPriority } from '../types/task';
+import type {
+  Task,
+  TaskStatus,
+  TaskPriority,
+  TaskFormState,
+} from '../types/task';
 
 type CreateTaskProps = {
   tasks: Task[];
@@ -13,18 +18,8 @@ type CreateTaskProps = {
 function TaskForm(props: CreateTaskProps) {
   const { tasks, currentlyEditing, handleSubmitTask, handleSetEditTask } =
     props;
-  const editTask = getEditTask();
 
-  const [title, setTitle] = useState(editTask ? editTask.title : '');
-  const [description, setDescription] = useState(
-    editTask ? editTask.description : '',
-  );
-  const [status, setStatus] = useState<TaskStatus>(
-    editTask ? editTask.status : 'todo',
-  );
-  const [priority, setPriority] = useState<TaskPriority>(
-    editTask ? editTask.priority : 'medium',
-  );
+  const editTask = getEditTask();
 
   function getEditTask() {
     if (currentlyEditing === 'create') return null;
@@ -34,25 +29,47 @@ function TaskForm(props: CreateTaskProps) {
     return editTask;
   }
 
+  const initialFormState: TaskFormState = editTask
+    ? {
+        title: editTask.title,
+        description: editTask.description,
+        status: editTask.status,
+        priority: editTask.priority,
+        dueDate: editTask.dueDate ?? '',
+      }
+    : {
+        title: '',
+        description: '',
+        status: 'todo',
+        priority: 'medium',
+        dueDate: '',
+      };
+
+  const [formState, setFormState] = useState<TaskFormState>(initialFormState);
+
   function onSubmitTask() {
     const task: Task = {
       id: editTask?.id || crypto.randomUUID(),
-      title,
-      description,
-      status,
-      priority,
+      title: formState.title.trim(),
+      description: formState.description.trim(),
+      status: formState.status,
+      priority: formState.priority,
+      dueDate: formState.dueDate,
     };
     const type = editTask ? 'edit' : 'create';
     handleSubmitTask(task, type);
-    handleSetEditTask(null);
-    setTitle('');
-    setDescription('');
+    resetChanges();
   }
 
   function resetChanges() {
     handleSetEditTask(null);
-    setTitle('');
-    setDescription('');
+    setFormState({
+      title: '',
+      description: '',
+      status: 'todo',
+      priority: 'medium',
+      dueDate: '',
+    });
   }
 
   return (
@@ -66,9 +83,9 @@ function TaskForm(props: CreateTaskProps) {
             <div className="input-label">Title</div>
             <input
               placeholder="Insert Title"
-              value={title}
+              value={formState.title}
               onChange={(e) => {
-                setTitle(e.target.value);
+                setFormState({ ...formState, title: e.target.value });
               }}
             ></input>
           </div>
@@ -76,17 +93,22 @@ function TaskForm(props: CreateTaskProps) {
             <div className="input-label">Description</div>
             <input
               placeholder="Insert Description"
-              value={description}
+              value={formState.description}
               onChange={(e) => {
-                setDescription(e.target.value);
+                setFormState({ ...formState, description: e.target.value });
               }}
             ></input>
           </div>
           <div className="input-container">
             <div className="input-label">Status</div>
             <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value as TaskStatus)}
+              value={formState.status}
+              onChange={(e) =>
+                setFormState({
+                  ...formState,
+                  status: e.target.value as TaskStatus,
+                })
+              }
             >
               <option value={'todo'}>To Do</option>
               <option value={'in-progress'}>In Progress</option>
@@ -96,13 +118,28 @@ function TaskForm(props: CreateTaskProps) {
           <div className="input-container">
             <div className="input-label">Priority</div>
             <select
-              value={priority}
-              onChange={(e) => setPriority(e.target.value as TaskPriority)}
+              value={formState.priority}
+              onChange={(e) => {
+                setFormState({
+                  ...formState,
+                  priority: e.target.value as TaskPriority,
+                });
+              }}
             >
               <option value={'low'}>Low</option>
               <option value={'medium'}>Medium</option>
               <option value={'high'}>High</option>
             </select>
+          </div>
+          <div className="input-container">
+            <div className="input-label">Priority</div>
+            <input
+              type="date"
+              value={formState.dueDate ?? ''}
+              onChange={(e) => {
+                setFormState({ ...formState, dueDate: e.target.value });
+              }}
+            ></input>
           </div>
           <button onClick={resetChanges}>Cancel</button>
           <button onClick={onSubmitTask}>

@@ -7,9 +7,18 @@ export type Task = {
   description: string;
   status: TaskStatus;
   priority: TaskPriority;
+  dueDate: string | null;
 };
 
 export type TaskAction =
   | { type: 'ADD_TASK'; payload: Task }
   | { type: 'UPDATE_TASK'; payload: Task }
   | { type: 'DELETE_TASK'; payload: string | null };
+
+export type TaskFormState = {
+  title: string;
+  description: string;
+  status: TaskStatus;
+  priority: TaskPriority;
+  dueDate: string;
+};
