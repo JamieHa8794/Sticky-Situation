@@ -18,6 +18,7 @@ function Board() {
   const [tasks, dispatch] = useReducer(taskReducer, undefined, getInitialTasks);
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null);
   const [serachText, setSearchText] = useState('');
+  const [selectedPriority, setSelectedPriority] = useState('');
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -48,9 +49,18 @@ function Board() {
     dispatch({ type: 'DELETE_TASK', payload: id });
   }
 
-  const filteredTasks = tasks.filter((task) => {
-    return task.title.toLowerCase().includes(serachText.toLowerCase());
-  });
+  function getFilteredTasks() {
+    const filteredTitle = tasks.filter((task) => {
+      return task.title.toLowerCase().includes(serachText.toLowerCase());
+    });
+
+    if (selectedPriority) {
+      return filteredTitle.filter((task) => task.priority === selectedPriority);
+    } else {
+      return filteredTitle;
+    }
+  }
+  const filteredTasks = getFilteredTasks();
 
   return (
     <div>
@@ -68,6 +78,15 @@ function Board() {
             value={serachText}
             onChange={(e) => setSearchText(e.target.value)}
           ></input>
+          <select
+            value={selectedPriority}
+            onChange={(e) => setSelectedPriority(e.target.value)}
+          >
+            <option value={''}>Filter by Priority</option>
+            <option value={'low'}>Low</option>
+            <option value={'medium'}>Medium</option>
+            <option value={'high'}>High</option>
+          </select>
         </div>
         <div className="column-container">
           {columns.map((column) => {
