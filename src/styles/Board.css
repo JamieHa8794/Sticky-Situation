@@ -1,6 +1,9 @@
 .board-container {
   padding: 2rem;
 }
+.board-toolbar {
+  margin: 10px 0;
+}
 .column-container {
   display: flex;
   justify-content: space-between;

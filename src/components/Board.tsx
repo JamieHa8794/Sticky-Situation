@@ -17,6 +17,7 @@ function Board() {
 
   const [tasks, dispatch] = useReducer(taskReducer, undefined, getInitialTasks);
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null);
+  const [serachText, setSearchText] = useState('');
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -47,6 +48,10 @@ function Board() {
     dispatch({ type: 'DELETE_TASK', payload: id });
   }
 
+  const filteredTasks = tasks.filter((task) => {
+    return task.title.toLowerCase().includes(serachText.toLowerCase());
+  });
+
   return (
     <div>
       <TaskForm
@@ -57,9 +62,16 @@ function Board() {
         handleSetEditTask={handleSetEditTask}
       />
       <div className="board-container">
+        <div className="board-toolbar">
+          <input
+            placeholder="Search"
+            value={serachText}
+            onChange={(e) => setSearchText(e.target.value)}
+          ></input>
+        </div>
         <div className="column-container">
           {columns.map((column) => {
-            const columnTasks = tasks.filter(
+            const columnTasks = filteredTasks.filter(
               (task) => task.status === column.status,
             );
             return (
