@@ -3,11 +3,13 @@ import { useEffect, useReducer, useState } from 'react';
 import Column from './Column';
 import TaskForm from './TaskForm';
 
-import type { Task, TaskAction } from '../types/task';
+import type { Task, TaskAction, sortOptions } from '../types/task';
+import { PRIORITY_ORDER } from '../types/task';
 import {
   tasks as InitialTasks,
   taskStatusList,
   priorityList,
+  sortList,
 } from '../data/tasks';
 
 import '../styles/Board.css';
@@ -24,6 +26,7 @@ function Board() {
   const [serachText, setSearchText] = useState('');
   const [selectedPriority, setSelectedPriority] = useState('');
   const [selectedStatus, setSelctedStatus] = useState('');
+  const [sortBy, setSortBy] = useState<sortOptions>('default');
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -74,6 +77,27 @@ function Board() {
   }
   const filteredTasks = getFilteredTasks();
 
+  function sortTasks() {
+    if (sortBy === 'default') {
+      return filteredTasks;
+    } else if (sortBy === 'due-date') {
+      return filteredTasks.sort((a, b) =>
+        (a.dueDate || '').localeCompare(b.dueDate || ''),
+      );
+    } else if (sortBy === 'priority') {
+      return filteredTasks.sort((a, b) => {
+        return PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority];
+      });
+    } else if (sortBy === 'title') {
+      return filteredTasks.sort((a, b) => {
+        return a.title.localeCompare(b.title);
+      });
+    }
+  }
+
+  const sortedTaskList = sortTasks();
+  const formattedTaskList = sortedTaskList || [];
+
   return (
     <div>
       <TaskForm
@@ -122,10 +146,24 @@ function Board() {
               })}
             </select>
           </div>
+          <div className="board-toolbar-item">
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as sortOptions)}
+            >
+              {sortList.map((sortListItem, idx) => {
+                return (
+                  <option value={sortListItem.key} key={idx}>
+                    {sortListItem.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
         </div>
         <div className="column-container">
           {columns.map((column) => {
-            const columnTasks = filteredTasks.filter(
+            const columnTasks = formattedTaskList.filter(
               (task) => task.status === column.status,
             );
             return (

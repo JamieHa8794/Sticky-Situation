@@ -1,5 +1,6 @@
 export type TaskStatus = 'todo' | 'in-progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
+export type sortOptions = 'default' | 'due-date' | 'priority' | 'title';
 
 export type Task = {
   id: string;
@@ -21,4 +22,10 @@ export type TaskFormState = {
   status: TaskStatus;
   priority: TaskPriority;
   dueDate: string;
+};
+
+export const PRIORITY_ORDER: Record<TaskPriority, number> = {
+  high: 0,
+  medium: 1,
+  low: 2,
 };

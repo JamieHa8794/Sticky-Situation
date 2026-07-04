@@ -1,4 +1,10 @@
-import type { Task } from '../types/task';
+import type { SelectOption } from '../types/common';
+import type {
+  Task,
+  TaskStatus,
+  TaskPriority,
+  sortOptions,
+} from '../types/task';
 
 export const tasks: Task[] = [
   {
@@ -35,7 +41,7 @@ export const tasks: Task[] = [
   },
 ];
 
-export const taskStatusList = [
+export const taskStatusList: SelectOption<TaskStatus>[] = [
   {
     key: 'todo',
     name: 'To Do',
@@ -50,7 +56,7 @@ export const taskStatusList = [
   },
 ];
 
-export const priorityList = [
+export const priorityList: SelectOption<TaskPriority>[] = [
   {
     key: 'low',
     name: 'Low',
@@ -62,5 +68,24 @@ export const priorityList = [
   {
     key: 'high',
     name: 'High',
+  },
+];
+
+export const sortList: SelectOption<sortOptions>[] = [
+  {
+    key: 'default',
+    name: 'Default',
+  },
+  {
+    key: 'due-date',
+    name: 'Due Date',
+  },
+  {
+    key: 'priority',
+    name: 'Priority',
+  },
+  {
+    key: 'title',
+    name: 'Title',
   },
 ];
