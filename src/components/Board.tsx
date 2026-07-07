@@ -26,6 +26,7 @@ function Board() {
   const [sortBy, setSortBy] = useState<sortOptions>('default');
   const [isTaskFormModalOpen, setIsTaskFormModalOpen] = useState(false);
   const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
+  const [hoveredColumn, setHoveredColumn] = useState<string | null>(null);
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -126,6 +127,15 @@ function Board() {
     setDraggedTaskId(id);
   }
 
+  function clearDragState() {
+    setDraggedTaskId(null);
+    setHoveredColumn(null);
+  }
+
+  function handleDragEnd() {
+    clearDragState();
+  }
+
   function handleDropTask(newTaskStatus: TaskStatus) {
     if (!draggedTaskId) return;
 
@@ -136,7 +146,11 @@ function Board() {
         status: newTaskStatus,
       },
     });
-    setDraggedTaskId(null);
+    clearDragState();
+  }
+
+  function handleHoverColumn(columnName: string) {
+    setHoveredColumn(columnName);
   }
 
   return (
@@ -239,7 +253,11 @@ function Board() {
                 handleSetDeleteTaskId={handleSetDeleteTaskId}
                 handleToggleTaskFormModal={handleToggleTaskFormModal}
                 handleDragStart={handleDragStart}
+                handleDragEnd={handleDragEnd}
                 handleDropTask={handleDropTask}
+                handleHoverColumn={handleHoverColumn}
+                draggedTaskId={draggedTaskId}
+                hoveredColumn={hoveredColumn}
               />
             );
           })}

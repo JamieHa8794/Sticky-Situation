@@ -6,10 +6,12 @@ import '../styles/TaskCard.css';
 
 type TaskCardProps = {
   task: Task;
+  draggedTaskId: string | null;
   handleSetEditTask: (id: string | null) => void;
   handleSetDeleteTaskId: (id: string) => void;
   handleToggleTaskFormModal: () => void;
   handleDragStart: (id: string) => void;
+  handleDragEnd: () => void;
 };
 
 function TaskCard(props: TaskCardProps) {
@@ -19,18 +21,23 @@ function TaskCard(props: TaskCardProps) {
     handleSetDeleteTaskId,
     handleToggleTaskFormModal,
     handleDragStart,
+    handleDragEnd,
+    draggedTaskId,
   } = props;
 
   const formattedDueDate = formatDateString(dueDate);
   const formattedPriority = formatToProperCase(priority);
 
+  const isDragged = draggedTaskId === id;
+
   return (
     <div
-      className="card-container"
+      className={`card-container ${isDragged ? 'dragged' : ''}`}
       draggable
       onDragStart={() => {
         handleDragStart(id);
       }}
+      onDragEnd={() => handleDragEnd()}
     >
       <div className="card-header">
         <div>{title}</div>

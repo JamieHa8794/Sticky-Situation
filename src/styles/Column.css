@@ -2,6 +2,12 @@
   display: flex;
   flex-direction: column;
 }
+.column-container.dragging {
+  background-color: rgb(128, 128, 128, 0.25);
+}
+.column-container.dragging.hovered {
+  background-color: rgb(128, 128, 128, 0.9);
+}
 .column-header {
   display: flex;
   justify-content: center;

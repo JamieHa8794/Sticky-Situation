@@ -8,12 +8,16 @@ type ColumnProps = {
   columnName: string;
   columnStatus: TaskStatus;
   tasks: Task[];
+  draggedTaskId: string | null;
+  hoveredColumn: string | null;
 
   handleSetEditTask: (id: string | null) => void;
   handleSetDeleteTaskId: (id: string) => void;
   handleToggleTaskFormModal: () => void;
   handleDragStart: (id: string) => void;
+  handleDragEnd: () => void;
   handleDropTask: (newTaskStatus: TaskStatus) => void;
+  handleHoverColumn: (columnName: string) => void;
 };
 
 function Column(props: ColumnProps) {
@@ -25,14 +29,26 @@ function Column(props: ColumnProps) {
     handleSetDeleteTaskId,
     handleToggleTaskFormModal,
     handleDragStart,
+    handleDragEnd,
     handleDropTask,
+    handleHoverColumn,
+    draggedTaskId,
+    hoveredColumn,
   } = props;
   const hasNoTasks = tasks.length === 0;
 
+  const isDragging = !!draggedTaskId;
+  const isHovered = isDragging && hoveredColumn === columnName;
+
   return (
     <div
-      className="column-container"
-      onDragOver={(e) => e.preventDefault()}
+      className={`column-container 
+        ${isDragging ? 'dragging' : ''} 
+        ${isHovered ? 'hovered' : ''}`}
+      onDragOver={(e) => {
+        e.preventDefault();
+        handleHoverColumn(columnName);
+      }}
       onDrop={() => {
         handleDropTask(columnStatus);
       }}
@@ -53,6 +69,8 @@ function Column(props: ColumnProps) {
                 handleSetDeleteTaskId={handleSetDeleteTaskId}
                 handleToggleTaskFormModal={handleToggleTaskFormModal}
                 handleDragStart={handleDragStart}
+                handleDragEnd={handleDragEnd}
+                draggedTaskId={draggedTaskId}
               />
             );
           })
