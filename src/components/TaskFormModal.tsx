@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../styles/TaskForm.css';
+import '../styles/TaskFormModal.css';
 
 import type {
   Task,
@@ -13,11 +13,17 @@ type CreateTaskProps = {
   currentlyEditing: string | null;
   handleSubmitTask: (task: Task, type: string) => void;
   handleSetEditTask: (id: string | null) => void;
+  handleToggleTaskFormModal: () => void;
 };
 
-function TaskForm(props: CreateTaskProps) {
-  const { tasks, currentlyEditing, handleSubmitTask, handleSetEditTask } =
-    props;
+function TaskFormModal(props: CreateTaskProps) {
+  const {
+    tasks,
+    currentlyEditing,
+    handleSubmitTask,
+    handleSetEditTask,
+    handleToggleTaskFormModal,
+  } = props;
 
   const editTask = getEditTask();
 
@@ -81,8 +87,8 @@ function TaskForm(props: CreateTaskProps) {
   }
 
   return (
-    <div>
-      <div className="create-task-container">
+    <div className="modal-overlay">
+      <div className="task-modal-container">
         <div className="modal-header">
           <div>{currentlyEditing ? 'Edit a Task' : 'Create a New Task'}</div>
         </div>
@@ -161,8 +167,22 @@ function TaskForm(props: CreateTaskProps) {
               }}
             ></input>
           </div>
-          <button onClick={resetChanges}>Cancel</button>
-          <button onClick={onSubmitTask}>
+        </div>
+        <div className="modal-footer">
+          <button
+            onClick={() => {
+              resetChanges();
+              handleToggleTaskFormModal();
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => {
+              onSubmitTask();
+              handleToggleTaskFormModal();
+            }}
+          >
             {editTask ? 'Edit Task' : 'Create New Task'}
           </button>
         </div>
@@ -171,4 +191,4 @@ function TaskForm(props: CreateTaskProps) {
   );
 }
 
-export default TaskForm;
+export default TaskFormModal;

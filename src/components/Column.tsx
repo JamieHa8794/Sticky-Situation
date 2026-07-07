@@ -10,10 +10,17 @@ type ColumnProps = {
 
   handleSetEditTask: (id: string | null) => void;
   handleSetDeleteTaskId: (id: string) => void;
+  handleToggleTaskFormModal: () => void;
 };
 
 function Column(props: ColumnProps) {
-  const { columnName, tasks, handleSetEditTask, handleSetDeleteTaskId } = props;
+  const {
+    columnName,
+    tasks,
+    handleSetEditTask,
+    handleSetDeleteTaskId,
+    handleToggleTaskFormModal,
+  } = props;
   const hasNoTasks = tasks.length === 0;
 
   return (
@@ -33,6 +40,7 @@ function Column(props: ColumnProps) {
                   task={task}
                   handleSetEditTask={handleSetEditTask}
                   handleSetDeleteTaskId={handleSetDeleteTaskId}
+                  handleToggleTaskFormModal={handleToggleTaskFormModal}
                 />
               );
             })

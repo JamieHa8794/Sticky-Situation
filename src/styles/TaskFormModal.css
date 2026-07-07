@@ -8,28 +8,34 @@
   justify-content: center;
   align-items: center;
 }
-.delete-modal-container {
+.task-modal-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   border: solid;
-  width: 250px;
-  height: 250px;
+  width: 450px;
+  height: 450px;
 
   padding: 10px;
 
   background-color: whitesmoke;
 }
-.delete-modal-container .modal-header {
+.task-modal-container .modal-header {
   display: flex;
-  justify-content: start;
-
-  width: 100%;
+  justify-content: center;
 }
-.delete-modal-container .modal-footer {
+
+.task-modal-container .input-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 5px;
+}
+.task-modal-container .modal-footer {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+
+  padding-top: 10px;
 }

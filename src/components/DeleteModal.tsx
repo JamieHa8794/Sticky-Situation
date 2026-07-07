@@ -15,7 +15,7 @@ function DeleteModal(props: DeleteModalProps) {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-container">
+      <div className="delete-modal-container">
         <div className="modal-header">
           <div>Confirm Delete?</div>
         </div>

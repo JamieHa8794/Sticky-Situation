@@ -8,6 +8,7 @@ type TaskCardProps = {
   task: Task;
   handleSetEditTask: (id: string | null) => void;
   handleSetDeleteTaskId: (id: string) => void;
+  handleToggleTaskFormModal: () => void;
 };
 
 function TaskCard(props: TaskCardProps) {
@@ -15,6 +16,7 @@ function TaskCard(props: TaskCardProps) {
     task: { id, title, description, priority, dueDate, tags },
     handleSetEditTask,
     handleSetDeleteTaskId,
+    handleToggleTaskFormModal,
   } = props;
 
   const formattedDueDate = formatDateString(dueDate);
@@ -48,6 +50,7 @@ function TaskCard(props: TaskCardProps) {
           <button
             onClick={() => {
               handleSetEditTask(id);
+              handleToggleTaskFormModal();
             }}
           >
             Edit Card
