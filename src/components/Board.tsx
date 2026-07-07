@@ -2,16 +2,13 @@ import { useEffect, useReducer, useState } from 'react';
 
 import Column from './Column';
 import TaskFormModal from './TaskFormModal';
+import BoardToolbar from './BoardToolBar';
 
 import type { Task, TaskAction, TaskStatus, sortOptions } from '../types/task';
 import { PRIORITY_ORDER } from '../types/task';
-import {
-  tasks as InitialTasks,
-  taskStatusList,
-  priorityList,
-} from '../data/tasks';
+import { tasks as InitialTasks } from '../data/tasks';
 
-import { columns, sortList } from '../data/board';
+import { columns } from '../data/board';
 
 import '../styles/Board.css';
 import DeleteModal from './DeleteModal';
@@ -71,6 +68,18 @@ function Board() {
     dispatch({ type: 'DELETE_TASK', payload: id });
   }
 
+  function handleSearchText(newSearchText: string) {
+    setSearchText(newSearchText);
+  }
+  function handleSetSelectedStatus(newStatus: string) {
+    setSelectedStatus(newStatus);
+  }
+  function handleSetSelectedPriority(newPriority: string) {
+    setSelectedPriority(newPriority);
+  }
+  function handleSetSortBy(newSortBy: sortOptions) {
+    setSortBy(newSortBy);
+  }
   function resetView() {
     setSearchText('');
     setSelectedPriority('');
@@ -167,67 +176,18 @@ function Board() {
         ''
       )}
       <div className="board-container">
-        <div className="board-toolbar">
-          <div className="board-toolbar-start">
-            <button onClick={handleToggleTaskFormModal}>Create New Task</button>
-          </div>
-          <div className="board-toolbar-end">
-            <div className="board-toolbar-item">
-              <input
-                placeholder="Search"
-                value={serachText}
-                onChange={(e) => setSearchText(e.target.value)}
-              ></input>
-            </div>
-            <div className="board-toolbar-item">
-              <select
-                value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value)}
-              >
-                <option value={''}>Filter by Status</option>
-                {taskStatusList.map((status, idx) => {
-                  return (
-                    <option value={status.key} key={idx}>
-                      {status.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="board-toolbar-item">
-              <select
-                value={selectedPriority}
-                onChange={(e) => setSelectedPriority(e.target.value)}
-              >
-                <option value={''}>Filter by Priority</option>
-                {priorityList.map((priorityItem, idx) => {
-                  return (
-                    <option value={priorityItem.key} key={idx}>
-                      {priorityItem.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="board-toolbar-item">
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as sortOptions)}
-              >
-                {sortList.map((sortListItem, idx) => {
-                  return (
-                    <option value={sortListItem.key} key={idx}>
-                      {sortListItem.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="board-toolbar-item">
-              <button onClick={resetView}>Reset View</button>
-            </div>
-          </div>
-        </div>
+        <BoardToolbar
+          handleToggleTaskFormModal={handleToggleTaskFormModal}
+          serachText={serachText}
+          handleSearchText={handleSearchText}
+          selectedStatus={selectedStatus}
+          handleSetSelectedStatus={handleSetSelectedStatus}
+          selectedPriority={selectedPriority}
+          handleSetSelectedPriority={handleSetSelectedPriority}
+          sortBy={sortBy}
+          handleSetSortBy={handleSetSortBy}
+          resetView={resetView}
+        />
 
         <div className="board-body">
           {columns.map((column) => {
