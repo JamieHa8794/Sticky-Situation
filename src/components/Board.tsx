@@ -22,7 +22,7 @@ function Board() {
   const [deleteTaskId, setDeleteTaskId] = useState<string | null>(null);
   const [serachText, setSearchText] = useState('');
   const [selectedPriority, setSelectedPriority] = useState('');
-  const [selectedStatus, setSelctedStatus] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('');
   const [sortBy, setSortBy] = useState<sortOptions>('default');
   const [isTaskFormModalOpen, setIsTaskFormModalOpen] = useState(false);
   const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
@@ -71,53 +71,44 @@ function Board() {
     dispatch({ type: 'DELETE_TASK', payload: id });
   }
 
-  function getFilteredTasks() {
-    let filteredTaskList = tasks.filter((task) => {
-      return task.title.toLowerCase().includes(serachText.toLowerCase());
-    });
-
-    if (selectedPriority) {
-      filteredTaskList = filteredTaskList.filter(
-        (task) => task.priority === selectedPriority,
-      );
-    }
-    if (selectedStatus) {
-      filteredTaskList = filteredTaskList.filter(
-        (task) => task.status === selectedStatus,
-      );
-    }
-
-    return filteredTaskList;
-  }
-  const filteredTasks = getFilteredTasks();
-
   function resetView() {
     setSearchText('');
     setSelectedPriority('');
-    setSelctedStatus('');
+    setSelectedStatus('');
     setSortBy('default');
   }
 
-  function sortTasks() {
-    if (sortBy === 'default') {
-      return filteredTasks;
-    } else if (sortBy === 'due-date') {
-      return filteredTasks.sort((a, b) =>
-        (a.dueDate || '').localeCompare(b.dueDate || ''),
-      );
-    } else if (sortBy === 'priority') {
-      return filteredTasks.sort((a, b) => {
-        return PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority];
-      });
-    } else if (sortBy === 'title') {
-      return filteredTasks.sort((a, b) => {
-        return a.title.localeCompare(b.title);
-      });
-    }
-  }
+  const filteredTasks = tasks.filter((task) => {
+    const matchesSearch = task.title
+      .toLocaleLowerCase()
+      .includes(serachText.toLowerCase());
 
-  const sortedTaskList = sortTasks();
-  const formattedTaskList = sortedTaskList || [];
+    const matchesPriority = selectedPriority
+      ? task.priority === selectedPriority
+      : true;
+
+    const matchesStatus = selectedStatus
+      ? task.status === selectedStatus
+      : true;
+
+    return matchesSearch && matchesPriority && matchesStatus;
+  });
+
+  const sortedTaskList = [...filteredTasks].sort((a, b) => {
+    if (sortBy === 'default') {
+      return 0;
+    } else if (sortBy === 'due-date') {
+      return (a.dueDate || '').localeCompare(b.dueDate || '');
+    } else if (sortBy === 'priority') {
+      return PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority];
+    } else if (sortBy === 'title') {
+      return a.title.localeCompare(b.title);
+    }
+
+    return 0;
+  });
+
+  const formattedTaskList = sortedTaskList;
 
   function handleToggleTaskFormModal() {
     setIsTaskFormModalOpen(!isTaskFormModalOpen);
@@ -191,7 +182,7 @@ function Board() {
             <div className="board-toolbar-item">
               <select
                 value={selectedStatus}
-                onChange={(e) => setSelctedStatus(e.target.value)}
+                onChange={(e) => setSelectedStatus(e.target.value)}
               >
                 <option value={''}>Filter by Status</option>
                 {taskStatusList.map((status, idx) => {
