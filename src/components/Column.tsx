@@ -56,7 +56,7 @@ function Column(props: ColumnProps) {
     >
       <div className="column-header">
         <div className="column-header-title">{columnName}</div>
-        <div className="chip">{tasks.length}</div>
+        <div className="badge">{tasks.length}</div>
       </div>
       <div>
         {hasNoTasks ? (
@@ -65,7 +65,7 @@ function Column(props: ColumnProps) {
             ${isDragging ? 'dragging' : ''} 
             ${isHovered ? 'hovered' : ''}`}
           >
-            <Inbox />
+            <Inbox className="icon xl" />
             <div className="empty-state-message-header">No tasks yet</div>
             <div
               className={`empty-state-message-main

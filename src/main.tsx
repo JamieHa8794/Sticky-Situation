@@ -5,7 +5,7 @@ import './styles/global.css';
 import './styles/button.css';
 import './styles/input.css';
 import './styles/icons.css';
-import './styles/chips.css';
+import './styles/badges.css';
 
 import App from './App.tsx';
 

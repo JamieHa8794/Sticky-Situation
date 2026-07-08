@@ -3,6 +3,7 @@ import { formatDateString, formatToProperCase } from '../utils';
 import type { Task } from '../types/task';
 
 import '../styles/TaskCard.css';
+import { Pencil, Trash2, CalendarFold, CircleCheck } from 'lucide-react';
 
 type TaskCardProps = {
   task: Task;
@@ -16,7 +17,7 @@ type TaskCardProps = {
 
 function TaskCard(props: TaskCardProps) {
   const {
-    task: { id, title, description, priority, dueDate, tags },
+    task: { id, title, description, priority, dueDate, tags, status },
     handleSetEditTask,
     handleSetDeleteTaskId,
     handleToggleTaskFormModal,
@@ -40,35 +41,59 @@ function TaskCard(props: TaskCardProps) {
       onDragEnd={() => handleDragEnd()}
     >
       <div className="card-header">
-        <div>{title}</div>
-        <button
-          onClick={() => {
-            handleSetEditTask(null);
-            handleSetDeleteTaskId(id);
-          }}
-        >
-          X
-        </button>
+        <div className="card-title">{title}</div>
+        <div>
+          <div className={`badge priority ${priority}`}>
+            {formattedPriority}
+          </div>
+        </div>
       </div>
       <div className="card-body">
-        <div>{description}</div>
-        <div>{formattedPriority}</div>
-        <div>{formattedDueDate}</div>
+        <div className="card-description">{description}</div>
+
         <div className="tag-container">
           {tags.map((tag, idx) => {
-            return <li key={idx}>#{tag}</li>;
+            return (
+              <li className="badge tag" key={idx}>
+                {formatToProperCase(tag)}
+              </li>
+            );
           })}
         </div>
       </div>
       <div className="card-footer">
-        <button
-          onClick={() => {
-            handleSetEditTask(id);
-            handleToggleTaskFormModal();
-          }}
-        >
-          Edit Card
-        </button>
+        <div className="card-footer-start">
+          <CalendarFold className="icon med-grey xs" />
+          <div className="due-date">
+            {dueDate ? formattedDueDate : 'No Due Date'}
+          </div>
+        </div>
+        <div className="card-footer-end">
+          {status === 'done' ? (
+            <CircleCheck className="icon green lg" />
+          ) : (
+            <div>
+              <button
+                className="btn icon"
+                onClick={() => {
+                  handleSetEditTask(id);
+                  handleToggleTaskFormModal();
+                }}
+              >
+                <Pencil className="icon med-grey xs" />
+              </button>
+              <button
+                className="btn icon"
+                onClick={() => {
+                  handleSetEditTask(null);
+                  handleSetDeleteTaskId(id);
+                }}
+              >
+                <Trash2 className="icon med-grey xs" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

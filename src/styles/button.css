@@ -68,3 +68,13 @@ button.btn.secondary:disabled {
   border-color: var(--border-default);
   cursor: not-allowed;
 }
+
+button.btn.icon {
+  all: unset;
+
+  padding: 5px;
+}
+button.btn.icon svg {
+  height: 16px;
+  width: 16px;
+}

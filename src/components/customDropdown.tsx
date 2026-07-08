@@ -40,7 +40,7 @@ function CustomDropdown<T>(props: CustomDropdownProps<T>) {
           : showDropdown || !selectedOption
             ? placeholderText
             : selectedOptionName}
-        <ChevronDown />
+        <ChevronDown className="icon grey xs" />
       </button>
       <div
         className={`dropdown-options-container ${showDropdown ? '' : 'hidden'}`}

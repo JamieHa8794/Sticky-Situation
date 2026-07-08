@@ -38,14 +38,14 @@ function BoardToolbar(props: BoardToolbarProps) {
     <div className="board-toolbar">
       <div className="board-toolbar-start">
         <button className="btn primary" onClick={handleToggleTaskFormModal}>
-          <Plus />
+          <Plus className="icon sm" />
           Create New Task
         </button>
       </div>
       <div className="board-toolbar-end">
         <div className="board-toolbar-item">
           <div className="input-container">
-            <Search className="icon placeholder sm" />
+            <Search className="icon grey sm" />
             <input
               className="inpt"
               placeholder="Search Tasks..."

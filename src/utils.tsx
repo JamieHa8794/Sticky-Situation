@@ -1,9 +1,12 @@
 export function formatDateString(dateString: string | null) {
   if (!dateString) return '';
 
-  const [year, month, day] = dateString.split('-');
+  const formattedDate = new Date(dateString).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+  });
 
-  return `${month}-${day}-${year}`;
+  return formattedDate;
 }
 
 export function formatToProperCase(text: string) {

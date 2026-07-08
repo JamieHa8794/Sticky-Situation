@@ -1,11 +1,33 @@
+.icon.xs {
+  width: 16px;
+  height: 16px;
+}
 .icon.sm {
+  width: 18px;
+  height: 18px;
+}
+.icon.md {
   width: 20px;
   height: 20px;
+}
+.icon.lg {
+  width: 24px;
+  height: 24px;
+}
+.icon.xl {
+  width: 32px;
+  height: 32px;
 }
 
 .icon.primary {
   color: var(--color-primary-700);
 }
-.icon.placeholder {
+.icon.grey {
   color: var(--gray-400);
+}
+.icon.med-grey {
+  color: var(--gray-500);
+}
+.icon.green {
+  color: var(--success-500);
 }
