@@ -35,6 +35,11 @@
   --error-500: #ef4444;
   --error-700: #b91c1c;
 
+  /* Review */
+  --review-50: #f5f3ff;
+  --review-500: #8b5cf6;
+  --review-700: #6d28d9;
+
   /* Backgrounds */
 
   --background-app: #f8fafc;

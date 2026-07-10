@@ -18,8 +18,35 @@
 }
 .input-container .inpt {
   all: unset;
+  width: 100%;
 }
 
 input.inpt::placeholder {
   color: var(--text-muted);
+  font-weight: var(--font-weight-regular);
+}
+
+.input-label {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+.input-helper-text {
+  font-size: var(--font-size-small);
+  color: var(--text-muted);
+}
+
+.txt-area {
+  min-height: fit-content;
+  min-width: fit-content;
+  padding: var(--space-3);
+
+  background: var(--background-surface);
+  color: var(--text-primary);
+
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
 }

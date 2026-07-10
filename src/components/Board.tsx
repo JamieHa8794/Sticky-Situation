@@ -8,12 +8,16 @@ import type { Task, TaskAction, TaskStatus, sortOptions } from '../types/task';
 import { PRIORITY_ORDER } from '../types/task';
 import { tasks as InitialTasks } from '../data/tasks';
 
-import { columns } from '../data/board';
+import { columns, boardTitle, boardSubtitle } from '../data/board';
 
 import '../styles/Board.css';
 import DeleteModal from './DeleteModal';
+// import { EllipsisVertical } from 'lucide-react';
 
 function Board() {
+  const [title, setTitle] = useState(boardTitle);
+  const [subtitle, setSubtitle] = useState(boardSubtitle);
+
   const [tasks, dispatch] = useReducer(taskReducer, undefined, getInitialTasks);
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null);
   const [deleteTaskId, setDeleteTaskId] = useState<string | null>(null);
@@ -167,27 +171,18 @@ function Board() {
 
   return (
     <div>
-      {isTaskFormModalOpen ? (
-        <TaskFormModal
-          tasks={tasks}
-          handleSubmitTask={handleSubmitTask}
-          currentlyEditing={currentlyEditing}
-          handleSetEditTask={handleSetEditTask}
-          handleToggleTaskFormModal={handleToggleTaskFormModal}
-        />
-      ) : (
-        ''
-      )}
-      {deleteTaskId ? (
-        <DeleteModal
-          tasks={tasks}
-          deleteTaskId={deleteTaskId}
-          handleConfirmDelete={handleConfirmDelete}
-        />
-      ) : (
-        ''
-      )}
-      <div className="board-container">
+      <div className="board-header">
+        <div className="board-header-start">
+          <div className="board-title">{title}</div>
+          <div className="board-subtitle">{subtitle}</div>
+        </div>
+        {/* <div className="board-header-end">
+          <button className="btn icon">
+            <EllipsisVertical className="icon grey lg" />
+          </button>
+        </div> */}
+      </div>
+      <div className="board-main-container">
         <BoardToolbar
           handleToggleTaskFormModal={handleToggleTaskFormModal}
           serachText={serachText}
@@ -226,6 +221,26 @@ function Board() {
           })}
         </div>
       </div>
+      {isTaskFormModalOpen ? (
+        <TaskFormModal
+          tasks={tasks}
+          handleSubmitTask={handleSubmitTask}
+          currentlyEditing={currentlyEditing}
+          handleSetEditTask={handleSetEditTask}
+          handleToggleTaskFormModal={handleToggleTaskFormModal}
+        />
+      ) : (
+        ''
+      )}
+      {deleteTaskId ? (
+        <DeleteModal
+          tasks={tasks}
+          deleteTaskId={deleteTaskId}
+          handleConfirmDelete={handleConfirmDelete}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 }

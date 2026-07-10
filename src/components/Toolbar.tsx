@@ -76,7 +76,7 @@ function BoardToolbar(props: BoardToolbarProps) {
           <CustomDropdown
             options={sortList}
             placeholderText={`Sort By:`}
-            customClosedStateText={`Sort By: ${sortByName}`}
+            formatSelectedText={(option) => `Sort: ${option.name}`}
             selectedOption={sortBy}
             onChange={handleSetSortBy}
             width="160px"

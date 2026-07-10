@@ -1,7 +1,7 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background: rgba(15, 23, 42, 0.45);
   z-index: 999;
 
   display: flex;
@@ -14,28 +14,53 @@
   justify-content: center;
   align-items: center;
 
-  border: solid;
-  width: 450px;
-  height: 450px;
+  gap: var(--space-4);
 
-  padding: 10px;
-
-  background-color: whitesmoke;
+  background: var(--background-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-6);
+  width: 100%;
+  max-width: 560px;
 }
 .task-modal-container .modal-header {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
+  margin-bottom: var(--space-5);
+}
+.task-modal-container .modal-title {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
 }
 
-.task-modal-container .input-container {
+.task-modal-container .form-container {
   display: flex;
   flex-direction: column;
-  padding: 10px 5px;
+  gap: var(--space-6);
+  width: 100%;
+}
+.task-modal-container .form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+.task-modal-container .form-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--space-3);
 }
 .task-modal-container .modal-footer {
   display: flex;
-  justify-content: space-evenly;
-  width: 100%;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 
-  padding-top: 10px;
+  width: 100%;
 }

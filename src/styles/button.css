@@ -74,7 +74,8 @@ button.btn.icon {
 
   padding: 5px;
 }
-button.btn.icon svg {
-  height: 16px;
-  width: 16px;
+button.btn.icon:hover {
+  background: var(--gray-100);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-sm);
 }

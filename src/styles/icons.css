@@ -31,3 +31,19 @@
 .icon.green {
   color: var(--success-500);
 }
+.icon.success {
+  color: var(--success-500);
+  opacity: 0.6;
+}
+.icon.warning {
+  color: var(--warning-500);
+  opacity: 0.6;
+}
+.icon.danger {
+  color: var(--error-500);
+  opacity: 0.6;
+}
+.icon.light-primary {
+  color: var(--color-primary-500);
+  opacity: 0.6;
+}

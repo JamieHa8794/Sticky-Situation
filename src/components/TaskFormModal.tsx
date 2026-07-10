@@ -7,6 +7,8 @@ import type {
   TaskPriority,
   TaskFormState,
 } from '../types/task';
+import CustomDropdown from './customDropdown';
+import { priorityList, taskStatusList } from '../data/tasks';
 
 type CreateTaskProps = {
   tasks: Task[];
@@ -86,90 +88,116 @@ function TaskFormModal(props: CreateTaskProps) {
     });
   }
 
+  function handleSetFormState<K extends keyof Task>(
+    stateKey: K,
+    value: Task[K],
+  ) {
+    setFormState((currentFormState) => ({
+      ...currentFormState,
+      [stateKey]: value,
+    }));
+  }
+
   return (
     <div className="modal-overlay">
       <div className="task-modal-container">
         <div className="modal-header">
-          <div>{currentlyEditing ? 'Edit a Task' : 'Create a New Task'}</div>
+          <div className="modal-title">
+            {currentlyEditing ? 'Edit a Task' : 'Create a New Task'}
+          </div>
         </div>
         <div className="form-container">
-          <div className="input-container">
-            <div className="input-label">Title</div>
-            <input
-              placeholder="Insert Title"
-              value={formState.title}
-              onChange={(e) => {
-                setFormState({ ...formState, title: e.target.value });
-              }}
-            ></input>
-          </div>
-          <div className="input-container">
-            <div className="input-label">Description</div>
-            <input
-              placeholder="Insert Description"
-              value={formState.description}
-              onChange={(e) => {
-                setFormState({ ...formState, description: e.target.value });
-              }}
-            ></input>
-          </div>
-          <div className="input-container">
-            <div className="input-label">Status</div>
-            <select
-              value={formState.status}
-              onChange={(e) =>
-                setFormState({
-                  ...formState,
-                  status: e.target.value as TaskStatus,
-                })
-              }
-            >
-              <option value={'todo'}>To Do</option>
-              <option value={'in-progress'}>In Progress</option>
-              <option value={'done'}>Done</option>
-            </select>
-          </div>
-          <div className="input-container">
-            <div className="input-label">Priority</div>
-            <select
-              value={formState.priority}
-              onChange={(e) => {
-                setFormState({
-                  ...formState,
-                  priority: e.target.value as TaskPriority,
-                });
-              }}
-            >
-              <option value={'low'}>Low</option>
-              <option value={'medium'}>Medium</option>
-              <option value={'high'}>High</option>
-            </select>
-          </div>
-          <div className="input-container">
-            <div className="input-label">Due Date</div>
-            <input
-              type="date"
-              value={formState.dueDate ?? ''}
-              onChange={(e) => {
-                setFormState({ ...formState, dueDate: e.target.value });
-              }}
-            ></input>
-          </div>
-          <div className="input-container">
-            <div className="input-label">
-              Tags: Insert as a comma seperated list
+          <div className="form-row">
+            <div className="form-item">
+              <div className="input-label">Title</div>
+              <div className="input-container">
+                <input
+                  className="inpt"
+                  placeholder="Enter task title"
+                  value={formState.title}
+                  onChange={(e) => {
+                    setFormState({ ...formState, title: e.target.value });
+                  }}
+                ></input>
+              </div>
             </div>
-            <input
-              value={formState.tags}
-              onChange={(e) => {
-                const inputArr = e.target.value.split(',');
-                setFormState({ ...formState, tags: inputArr });
-              }}
-            ></input>
+          </div>
+          <div className="form-row">
+            <div className="form-item">
+              <div className="input-label">Status</div>
+              <CustomDropdown
+                options={taskStatusList}
+                placeholderText={`Status`}
+                selectedOption={formState.status}
+                onChange={(value) => handleSetFormState('status', value)}
+                showOptionIcons
+              />
+            </div>
+            <div className="form-item">
+              <div className="input-label">Priority</div>
+              <CustomDropdown
+                options={priorityList}
+                placeholderText={`Priority`}
+                selectedOption={formState.priority}
+                onChange={(value) => handleSetFormState('priority', value)}
+                showOptionIcons
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-item">
+              <div className="input-label">Due Date</div>
+              <div className="input-container">
+                <input
+                  className="inpt"
+                  type="date"
+                  value={formState.dueDate ?? ''}
+                  onChange={(e) => {
+                    setFormState({ ...formState, dueDate: e.target.value });
+                  }}
+                ></input>
+              </div>
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-item">
+              <div className="input-label">Description</div>
+              <textarea
+                className="txt-area"
+                placeholder="Add a description..."
+                value={formState.description}
+                onChange={(e) => {
+                  setFormState({ ...formState, description: e.target.value });
+                }}
+              ></textarea>
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-item">
+              <div className="input-label">
+                Tags: Insert as a comma seperated list
+              </div>
+              <div className="input-container">
+                <input
+                  className="inpt"
+                  placeholder="Frontend, Bug, Urgent"
+                  value={formState.tags}
+                  onChange={(e) => {
+                    const inputArr = e.target.value.split(',');
+                    setFormState({ ...formState, tags: inputArr });
+                  }}
+                ></input>
+              </div>
+              <div className="input-helper-text">
+                Seperate tags with commas.
+              </div>
+            </div>
           </div>
         </div>
+
         <div className="modal-footer">
           <button
+            className="btn secondary"
             onClick={() => {
               resetChanges();
               handleToggleTaskFormModal();
@@ -178,6 +206,7 @@ function TaskFormModal(props: CreateTaskProps) {
             Cancel
           </button>
           <button
+            className="btn primary"
             onClick={() => {
               onSubmitTask();
               handleToggleTaskFormModal();

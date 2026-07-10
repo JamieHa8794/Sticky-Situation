@@ -3,6 +3,9 @@ import type { SelectOption } from '../types/common';
 
 import type { sortOptions } from '../types/task';
 
+export const boardTitle = 'Project Dashboard';
+export const boardSubtitle = 'Track progress and ship great work';
+
 export const columns: Column[] = [
   { id: '1', title: 'To Do', status: 'todo' },
   { id: '2', title: 'In Progress', status: 'in-progress' },

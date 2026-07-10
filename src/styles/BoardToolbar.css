@@ -2,13 +2,10 @@
   display: flex;
   justify-content: space-between;
 
-  background-color: var(--background-surface);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--border-default);
 
   padding: var(--space-4);
-  margin: 10px 0;
+  padding-top: 0;
 }
 
 .board-toolbar-start,
