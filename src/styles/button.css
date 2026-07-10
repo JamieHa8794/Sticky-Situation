@@ -21,9 +21,11 @@ button.btn {
   justify-content: center;
   align-items: center;
 }
+
+/* Primary Button */
 button.btn.primary {
   background-color: var(--color-primary-600);
-  color: #ffffff;
+  color: var(--text-on-primary);
   border: none;
   box-shadow: var(--shadow-sm);
 }
@@ -44,25 +46,62 @@ button.btn.primary:disabled {
   transform: none;
 }
 
+/* Secondary button */
 button.btn.secondary {
-  background: var(--background-surface);
-  color: var(--color-primary-600);
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
 
   border: 1px solid var(--border-default);
 
   box-shadow: none;
 }
 button.btn.secondary:hover {
-  background: var(--color-primary-50);
-  border-color: var(--color-primary-600);
-  color: var(--color-primary-700);
+  background: var(--gray-100);
 }
 button.btn.secondary:active {
-  background: var(--color-primary-100);
-  border-color: var(--color-primary-700);
-  color: var(--color-primary-700);
+  background: var(--gray-200);
 }
 button.btn.secondary:disabled {
+  background: var(--gray-50);
+  color: var(--text-disabled);
+  border-color: var(--gray-200);
+  cursor: not-allowed;
+}
+
+/* Destructive button */
+button.btn.destructive {
+  background-color: var(--error-600);
+  color: var(--text-on-error);
+}
+button.btn.destructive:hover {
+  background: var(--error-700);
+}
+button.btn.destructive:active {
+  background: var(--error-800);
+}
+button.btn.destructive:disabled {
+  background: var(--color-error-200);
+  color: var(--color-error-300);
+}
+
+/* Outlined Button */
+button.btn.outlined {
+  background: var(--bg-surface-elevated);
+  color: var(--color-primary-600);
+
+  border: 1px solid var(--border-default);
+
+  box-shadow: none;
+}
+button.btn.outlined:hover {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-600);
+}
+button.btn.outlined:active {
+  background: var(--color-primary-100);
+  border-color: var(--color-primary-600);
+}
+button.btn.outlined:disabled {
   background: var(--gray-100);
   color: var(--text-muted);
   border-color: var(--border-default);

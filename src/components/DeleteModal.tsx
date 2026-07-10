@@ -1,6 +1,7 @@
 import type { Task } from '../types/task';
 
 import '../styles/DeleteModal.css';
+import { TriangleAlert } from 'lucide-react';
 
 type DeleteModalProps = {
   deleteTaskId: string | null;
@@ -15,18 +16,36 @@ function DeleteModal(props: DeleteModalProps) {
 
   return (
     <div className="modal-overlay">
-      <div className="delete-modal-container">
+      <div className="delete-modal modal-container">
         <div className="modal-header">
-          <div>Confirm Delete?</div>
+          <div className="modal-title">Confirm Delete?</div>
         </div>
         <div className="modal-body">
-          You are about to delete the task: {deleteTask?.title}. This cannot be
-          undone.
+          <div className="modal-body-icon">
+            <TriangleAlert className="warning-icon-svg" />
+          </div>
+          <div className="modal-body-text-container">
+            <div className="modal-body-text">
+              Are you sure you want to delete:
+            </div>
+            <div className="modal-body-text bold">"{deleteTask?.title}"</div>
+            <div className="modal-body-sub-text">
+              This action cannot be undone.
+            </div>
+          </div>
         </div>
 
         <div className="modal-footer">
-          <button onClick={() => handleConfirmDelete(null)}>Cancel</button>
-          <button onClick={() => handleConfirmDelete(deleteTaskId)}>
+          <button
+            className="btn secondary"
+            onClick={() => handleConfirmDelete(null)}
+          >
+            Cancel
+          </button>
+          <button
+            className="btn primary destructive"
+            onClick={() => handleConfirmDelete(deleteTaskId)}
+          >
             Delete
           </button>
         </div>

@@ -33,7 +33,6 @@ function BoardToolbar(props: BoardToolbarProps) {
     resetView,
   } = props;
 
-  const sortByName = sortList.find((item) => item.key === sortBy)?.name;
   return (
     <div className="board-toolbar">
       <div className="board-toolbar-start">
@@ -83,7 +82,7 @@ function BoardToolbar(props: BoardToolbarProps) {
           />
         </div>
         <div className="board-toolbar-item">
-          <button onClick={resetView} className="btn secondary">
+          <button onClick={resetView} className="btn outlined">
             Reset View
           </button>
         </div>

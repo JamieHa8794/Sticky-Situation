@@ -6,6 +6,7 @@ import './styles/button.css';
 import './styles/input.css';
 import './styles/icons.css';
 import './styles/badges.css';
+import './styles/modal.css';
 
 import App from './App.tsx';
 
