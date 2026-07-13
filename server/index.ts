@@ -1,7 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 
-import { getTasksController } from './contollers/taskController';
+import {
+  createTaskController,
+  deleteTaskController,
+  getTasksController,
+  updateTaskController,
+} from './contollers/taskController';
 
 const app = express();
 
@@ -14,6 +19,12 @@ app.use(
 app.use(express.json());
 
 app.get('/tasks', getTasksController);
+
+app.delete('/tasks/:taskId', deleteTaskController);
+
+app.post('/tasks', createTaskController);
+
+app.patch('/tasks/:taskId', updateTaskController);
 
 app.get('/health', (req, res) => {
   res.json({

@@ -1,57 +1,64 @@
 import type { Task, TaskUpdates } from '../../shared/types/tasks';
 
-const TASKS_STORAGE_KEY = 'tasks';
 const API_URL = 'http://localhost:3000';
 
-async function readTasks(): Promise<Task[]> {
-  const response = await fetch(`${API_URL}/tasks`);
+export async function getTasks(): Promise<Task[]> {
+  const resp = await fetch(`${API_URL}/tasks`);
 
-  const tasks = await response.json();
+  if (!resp.ok) {
+    throw new Error('Failed to get tasks');
+  }
+
+  const tasks = await resp.json();
 
   return tasks;
 }
 
-function writeTasks(tasks: Task[]): void {
-  localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
-}
-
-export function getTasks(): Promise<Task[]> {
-  return readTasks();
-}
-
 export async function deleteTask(taskId: string): Promise<void> {
-  const tasks = await readTasks();
-  const newTasks = tasks.filter((task) => task.id !== taskId);
+  const resp = await fetch(`${API_URL}/tasks/${taskId}`, {
+    method: 'DELETE',
+  });
 
-  writeTasks(newTasks);
+  if (!resp.ok) {
+    throw new Error('Failed to delete task');
+  }
 }
 
-export async function createTask(newTask: Task): Promise<void> {
-  const tasks = await readTasks();
-  const updatedTaskList = [...tasks, newTask];
-  writeTasks(updatedTaskList);
+export async function createTask(newTask: Task): Promise<Task> {
+  const resp = await fetch(`${API_URL}/tasks`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newTask),
+  });
+
+  if (!resp.ok) {
+    throw new Error('Failed to create task');
+  }
+
+  const createdTask = await resp.json();
+
+  return createdTask;
 }
 
 export async function updateTask(
   taskId: string,
   updates: TaskUpdates,
 ): Promise<Task> {
-  const tasks = await readTasks();
-
-  let updatedTask: Task | undefined;
-
-  const updatedTaskList = tasks.map((task) => {
-    if (task.id === taskId) {
-      updatedTask = { ...task, ...updates };
-      return updatedTask;
-    }
-    return task;
+  const resp = await fetch(`${API_URL}/tasks/${taskId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updates),
   });
 
-  writeTasks(updatedTaskList);
-
-  if (!updatedTask) {
-    throw new Error('Task not found');
+  if (!resp.ok) {
+    throw new Error('Failed to update task');
   }
+
+  const updatedTask = await resp.json();
+
   return updatedTask;
 }

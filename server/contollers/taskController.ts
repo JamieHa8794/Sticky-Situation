@@ -32,7 +32,7 @@ export function deleteTaskController(
     return;
   }
 
-  res.json(deleteId);
+  res.status(204).send();
 }
 
 export function createTaskController(req: Request, res: Response): void {
