@@ -1,6 +1,6 @@
 import TaskCard from './TaskCard';
 
-import type { Task, TaskStatus } from '../types/task';
+import type { Task, TaskStatus } from '../../shared/types/tasks';
 
 import '../styles/Column.css';
 import { Inbox } from 'lucide-react';

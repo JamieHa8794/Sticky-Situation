@@ -4,7 +4,8 @@ import Column from './Column';
 import TaskFormModal from './TaskFormModal';
 import BoardToolbar from './Toolbar';
 
-import type { Task, TaskAction, TaskStatus, sortOptions } from '../types/task';
+import type { Task, TaskStatus } from '../../shared/types/tasks';
+import type { TaskAction, sortOptions } from '../types/task';
 import { PRIORITY_ORDER } from '../types/task';
 
 import { columns, boardTitle, boardSubtitle } from '../data/board';

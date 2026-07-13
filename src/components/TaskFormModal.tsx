@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import type { Task, TaskFormState } from '../types/task';
+import type { Task } from '../../shared/types/tasks';
+import type { TaskFormState } from '../types/task';
 import CustomDropdown from './customDropdown';
 import { priorityList, taskStatusList } from '../data/tasks';
 

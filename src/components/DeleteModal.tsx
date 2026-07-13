@@ -1,4 +1,4 @@
-import type { Task } from '../types/task';
+import type { Task } from '../../shared/types/tasks';
 
 import '../styles/DeleteModal.css';
 import { TriangleAlert } from 'lucide-react';

@@ -1,6 +1,6 @@
 import { formatDateString, formatToProperCase } from '../utils';
 
-import type { Task } from '../types/task';
+import type { Task } from '../../shared/types/tasks';
 
 import '../styles/TaskCard.css';
 import { Pencil, Trash2, CalendarFold, CircleCheck } from 'lucide-react';

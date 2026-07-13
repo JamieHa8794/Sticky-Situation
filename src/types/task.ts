@@ -1,16 +1,6 @@
-export type TaskStatus = 'todo' | 'in-progress' | 'done';
-export type TaskPriority = 'low' | 'medium' | 'high';
-export type sortOptions = 'newest' | 'due-date' | 'priority' | 'title';
+import type { Task, TaskStatus, TaskPriority } from '../../shared/types/tasks';
 
-export type Task = {
-  id: string;
-  title: string;
-  description: string;
-  status: TaskStatus;
-  priority: TaskPriority;
-  dueDate: string;
-  tags: string[];
-};
+export type sortOptions = 'newest' | 'due-date' | 'priority' | 'title';
 
 export type TaskFormState = {
   title: string;

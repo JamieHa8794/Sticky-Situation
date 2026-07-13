@@ -1,35 +1,34 @@
-import { tasks as InitialTasks } from '../data/tasks';
-import type { Task, TaskUpdates } from '../types/task';
+import type { Task } from '../../shared/types/tasks';
+import type { TaskUpdates } from '../types/task';
 
 const TASKS_STORAGE_KEY = 'tasks';
+const API_URL = 'http://localhost:3000';
 
-function readTasks(): Task[] {
-  const savedData = localStorage.getItem(TASKS_STORAGE_KEY);
+async function readTasks(): Promise<Task[]> {
+  const response = await fetch(`${API_URL}/tasks`);
 
-  if (!savedData) {
-    return InitialTasks;
-  }
+  const tasks = await response.json();
 
-  return JSON.parse(savedData) as Task[];
+  return tasks;
 }
 
 function writeTasks(tasks: Task[]): void {
   localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks));
 }
 
-export async function getTasks(): Promise<Task[]> {
+export function getTasks(): Promise<Task[]> {
   return readTasks();
 }
 
 export async function deleteTask(taskId: string): Promise<void> {
-  const tasks = readTasks();
+  const tasks = await readTasks();
   const newTasks = tasks.filter((task) => task.id !== taskId);
 
   writeTasks(newTasks);
 }
 
 export async function createTask(newTask: Task): Promise<void> {
-  const tasks = readTasks();
+  const tasks = await readTasks();
   const updatedTaskList = [...tasks, newTask];
   writeTasks(updatedTaskList);
 }
@@ -38,7 +37,7 @@ export async function updateTask(
   taskId: string,
   updates: TaskUpdates,
 ): Promise<Task> {
-  const tasks = readTasks();
+  const tasks = await readTasks();
 
   let updatedTask: Task | undefined;
 
