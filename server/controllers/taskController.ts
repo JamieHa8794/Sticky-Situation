@@ -5,7 +5,11 @@ import {
   createTask,
   updateTask,
 } from '../services/taskService';
-import type { Task, TaskUpdates } from '../../shared/types/tasks';
+import type {
+  Task,
+  CreateTaskInput,
+  TaskUpdates,
+} from '../../shared/types/tasks';
 
 type TaskIdParams = {
   taskId: string;
@@ -26,9 +30,9 @@ export function deleteTaskController(
 ): void {
   const taskId = req.params.taskId;
 
-  const deleteId = deleteTask(taskId);
+  const deletedTask = deleteTask(taskId);
 
-  if (!deleteId) {
+  if (!deletedTask) {
     res.status(404).json({
       message: 'Task not found',
     });
@@ -38,22 +42,25 @@ export function deleteTaskController(
   res.status(204).send();
 }
 
-export function createTaskController(req: Request, res: Response): void {
-  const newTask = req.body as Task;
+export async function createTaskController(
+  req: Request,
+  res: Response,
+): Promise<void> {
+  const newTask = req.body as CreateTaskInput;
 
-  const createdTask = createTask(newTask);
+  const createdTask = await createTask(newTask);
 
   res.status(201).json(createdTask);
 }
 
-export function updateTaskController(
+export async function updateTaskController(
   req: Request<TaskIdParams>,
   res: Response,
-): void {
+): Promise<void> {
   const taskId = req.params.taskId;
   const updates = req.body as TaskUpdates;
 
-  const updatedTask = updateTask(taskId, updates);
+  const updatedTask = await updateTask(taskId, updates);
 
   if (!updatedTask) {
     res.status(404).json({

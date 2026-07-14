@@ -55,8 +55,8 @@ function Board() {
       tags,
     };
     if (type === 'create') {
-      await createTask(newTask);
-      dispatch({ type: 'ADD_TASK', payload: newTask });
+      const createdTask = await createTask(newTask);
+      dispatch({ type: 'ADD_TASK', payload: createdTask });
     } else if (type === 'edit') {
       await updateTask(newTask.id, newTask);
       dispatch({ type: 'UPDATE_TASK', payload: newTask });
