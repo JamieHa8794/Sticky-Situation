@@ -1,4 +1,4 @@
-# Kanban Board
+# Sticky Situation | Kanban Board
 
 A full-stack task management application built with React, TypeScript, Express, Prisma, and PostgreSQL.
 
