@@ -1,7 +1,15 @@
+.board-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
 .board-main-container {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
 
   background-color: var(--background-surface);
   border: 1px solid var(--border-default);
@@ -35,4 +43,7 @@
   display: flex;
   justify-content: space-between;
   padding-top: var(--space-6);
+  gap: var(--space-4);
+
+  overflow-x: auto;
 }

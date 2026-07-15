@@ -185,7 +185,7 @@ function Board() {
   }
 
   return (
-    <div>
+    <div className="board-page-container">
       <div className="board-header">
         <div className="board-header-start">
           <div className="board-title">{title}</div>

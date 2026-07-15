@@ -1,6 +1,7 @@
 .board-toolbar {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   border-bottom: 1px solid var(--border-default);
 
@@ -12,4 +13,5 @@
 .board-toolbar-end {
   display: flex;
   gap: var(--space-3);
+  flex-wrap: wrap;
 }
