@@ -183,6 +183,24 @@ const seedTasks: Task[] = [
   },
   {
     id: 'seed-19',
+    title: 'Add task comments',
+    description: 'Allow users to discuss work directly within a task.',
+    status: 'todo',
+    priority: 'low',
+    dueDate: '',
+    tags: ['collaboration', 'feature'],
+  },
+  {
+    id: 'seed-20',
+    title: 'Create archived tasks view',
+    description: 'Allow users to browse and restore completed tasks.',
+    status: 'todo',
+    priority: 'low',
+    dueDate: '',
+    tags: ['workflow', 'feature'],
+  },
+  {
+    id: 'seed-21',
     title: 'Add API loading and error states',
     description:
       'Represent request loading, failures, and recovery behavior in the frontend.',
@@ -192,7 +210,7 @@ const seedTasks: Task[] = [
     tags: ['api', 'ux', 'error-handling'],
   },
   {
-    id: 'seed-20',
+    id: 'seed-22',
     title: 'Create the board data model',
     description:
       'Add a Board model with editable title and description and relate tasks to boards.',
@@ -202,7 +220,7 @@ const seedTasks: Task[] = [
     tags: ['boards', 'prisma', 'data-model'],
   },
   {
-    id: 'seed-21',
+    id: 'seed-23',
     title: 'Implement the board REST API',
     description:
       'Add endpoints for creating, reading, updating, and deleting boards.',
@@ -212,7 +230,7 @@ const seedTasks: Task[] = [
     tags: ['boards', 'rest-api', 'backend'],
   },
   {
-    id: 'seed-22',
+    id: 'seed-24',
     title: 'Scope tasks to their board',
     description:
       'Update task queries and mutations so each operation belongs to a specific board.',
@@ -222,7 +240,7 @@ const seedTasks: Task[] = [
     tags: ['boards', 'tasks', 'database'],
   },
   {
-    id: 'seed-23',
+    id: 'seed-25',
     title: 'Add application routing',
     description:
       'Introduce React Router and create routes for the boards list and individual boards.',
@@ -232,7 +250,7 @@ const seedTasks: Task[] = [
     tags: ['routing', 'react', 'navigation'],
   },
   {
-    id: 'seed-24',
+    id: 'seed-26',
     title: 'Build the Boards page',
     description:
       'Display available boards and support creating, opening, renaming, and deleting them.',
@@ -242,7 +260,7 @@ const seedTasks: Task[] = [
     tags: ['boards', 'page', 'frontend'],
   },
   {
-    id: 'seed-25',
+    id: 'seed-27',
     title: 'Build the Board details page',
     description:
       'Load the selected board, render its tasks, and display its editable title and description.',
@@ -252,7 +270,7 @@ const seedTasks: Task[] = [
     tags: ['boards', 'routing', 'frontend'],
   },
   {
-    id: 'seed-26',
+    id: 'seed-28',
     title: 'Add user authentication',
     description:
       'Implement account registration, login, logout, and secure password handling.',
@@ -262,7 +280,7 @@ const seedTasks: Task[] = [
     tags: ['auth', 'users', 'security'],
   },
   {
-    id: 'seed-27',
+    id: 'seed-29',
     title: 'Protect routes and board data',
     description:
       'Require authentication and ensure users can access only boards they own.',
@@ -272,7 +290,7 @@ const seedTasks: Task[] = [
     tags: ['authorization', 'security', 'boards'],
   },
   {
-    id: 'seed-28',
+    id: 'seed-30',
     title: 'Add task assignees',
     description:
       'Allow authenticated users to assign board tasks and display assignee information.',
@@ -282,7 +300,7 @@ const seedTasks: Task[] = [
     tags: ['assignees', 'users', 'tasks'],
   },
   {
-    id: 'seed-29',
+    id: 'seed-31',
     title: 'Add automated test coverage',
     description:
       'Test critical frontend behavior, backend services, API endpoints, and authorization rules.',
@@ -292,7 +310,7 @@ const seedTasks: Task[] = [
     tags: ['testing', 'vitest', 'api'],
   },
   {
-    id: 'seed-30',
+    id: 'seed-32',
     title: 'Deploy the finished application',
     description:
       'Deploy the frontend, backend, and database and update the portfolio documentation.',
