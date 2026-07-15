@@ -173,23 +173,16 @@ Colors, spacing, typography, shadows, and component styling are centralized thro
 git clone <repository-url>
 ```
 
-### Install Frontend Dependencies
+### Install Dependencies
 
 ```bash
-cd client
-npm install
-```
-
-### Install Backend Dependencies
-
-```bash
-cd server
+cd kanban-board
 npm install
 ```
 
 ### Configure Environment Variables
 
-Create a `.env` file inside the server directory.
+Create a `.env` file in the project root.
 
 ```env
 DATABASE_URL=your_database_url
@@ -207,16 +200,16 @@ npx prisma migrate dev
 npx prisma db seed
 ```
 
-### Start the Backend
+### Start the Frontend
 
 ```bash
 npm run dev
 ```
 
-### Start the Frontend
+### Start the Backend
 
 ```bash
-npm run dev
+npm run dev:server
 ```
 
 ---
