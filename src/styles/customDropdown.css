@@ -30,12 +30,11 @@
   position: absolute;
   top: 100%;
   left: 0;
+  z-index: 10;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-
-  z-index: 10;
 
   min-width: 100%;
   width: max-content;
@@ -53,13 +52,13 @@
   justify-content: space-between;
   align-items: center;
 
-  border: none;
   padding: var(--space-2);
 
   height: 40px;
 
   background: var(--background-surface);
   color: var(--text-primary);
+  border: none;
 
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-medium);

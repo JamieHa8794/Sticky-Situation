@@ -10,13 +10,12 @@
 .board-main-container {
   display: flex;
   flex-direction: column;
+  padding: var(--space-5);
 
   background-color: var(--background-surface);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-
-  padding: var(--space-5);
 }
 
 .board-header {
@@ -41,7 +40,7 @@
 }
 .board-body {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding-top: var(--space-6);
   gap: var(--space-4);
 

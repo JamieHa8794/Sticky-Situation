@@ -15,14 +15,14 @@
   align-items: center;
 
   gap: var(--space-4);
+  width: 100%;
+  max-width: 560px;
+  padding: var(--space-6);
 
   background: var(--background-surface);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  padding: var(--space-6);
-  width: 100%;
-  max-width: 560px;
 }
 .modal-header {
   display: flex;

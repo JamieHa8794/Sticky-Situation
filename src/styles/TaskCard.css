@@ -11,10 +11,12 @@
 }
 .card-container:hover {
   box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
   border-color: var(--color-primary-100);
+
   cursor: pointer;
+
   transition: 150ms ease;
+  transform: translateY(-2px);
 }
 .card-container.dragged {
   box-shadow: var(--shadow-lg);

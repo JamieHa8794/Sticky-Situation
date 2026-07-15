@@ -11,9 +11,9 @@
 }
 
 .warning-icon-svg {
-  color: var(--error-700);
   width: 40px;
   height: 40px;
+  color: var(--error-700);
 }
 .delete-modal .delete-modal-body-text-container {
   display: flex;

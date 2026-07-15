@@ -1,5 +1,7 @@
 :root {
   min-height: 100vh;
+
   background: var(--background-app);
+
   padding: var(--space-6);
 }
