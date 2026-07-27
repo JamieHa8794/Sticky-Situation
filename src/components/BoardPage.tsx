@@ -10,7 +10,7 @@ import { PRIORITY_ORDER } from '../types/task';
 
 import { columns, boardTitle, boardSubtitle } from '../data/board';
 
-import '../styles/Board.css';
+import '../styles/BoardPage.css';
 import DeleteModal from './DeleteModal';
 import {
   createTask,
@@ -20,7 +20,7 @@ import {
 } from '../services/taskService';
 // import { EllipsisVertical } from 'lucide-react';
 
-function Board() {
+function BoardPage() {
   const [title, setTitle] = useState(boardTitle);
   const [subtitle, setSubtitle] = useState(boardSubtitle);
 
@@ -288,4 +288,4 @@ function taskReducer(tasks: Task[], action: TaskAction) {
   }
 }
 
-export default Board;
+export default BoardPage;
