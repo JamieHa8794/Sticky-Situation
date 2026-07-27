@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+
+  padding: var(--space-5);
+
+  background-color: var(--color-primary-200);
+}
+.navbar-start {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+.app-name {
+  font-size: var(--font-size-h1);
+}
+.navbar a {
+  padding: var(--space-2);
+  gap: var(--space-4);
+
+  color: var(--text-on-primary);
+  text-decoration: none;
+}
+
+.navbar-end {
+  display: flex;
+  align-items: center;
+}

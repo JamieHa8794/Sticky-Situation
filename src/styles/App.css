@@ -2,6 +2,7 @@
   min-height: 100vh;
 
   background: var(--background-app);
-
+}
+.main-body {
   padding: var(--space-6);
 }
