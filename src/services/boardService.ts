@@ -25,3 +25,23 @@ export async function getBoard(boardId: string): Promise<Board> {
 
   return board;
 }
+
+/**
+ * Retrieves all tasks belonging to the specified board.
+ *
+ * Throws an error if the request is unsuccessful.
+ *
+ * @param boardId - The unique identifier of the board whose tasks should be loaded.
+ * @returns A promise that resolves to the board's tasks.
+ */
+export async function getBoardTasks(boardId: string): Promise<Task[]> {
+  const resp = await fetch(`${API_URL}/boards/${boardId}/tasks`);
+
+  if (!resp.ok) {
+    throw new Error('Failed to get tasks');
+  }
+
+  const tasks = await resp.json();
+
+  return tasks;
+}

@@ -13,14 +13,9 @@ import { columns } from '../data/board';
 
 import DeleteModal from './DeleteModal';
 
-import {
-  createTask,
-  deleteTask,
-  getTasks,
-  updateTask,
-} from '../services/taskService';
+import { createTask, deleteTask, updateTask } from '../services/taskService';
 
-import { getBoard } from '../services/boardService';
+import { getBoard, getBoardTasks } from '../services/boardService';
 
 import '../styles/BoardPage.css';
 // import { EllipsisVertical } from 'lucide-react';
@@ -46,7 +41,7 @@ function BoardPage() {
     if (!boardId) return;
 
     async function loadTasks(boardId: string) {
-      const tasks = await getTasks(boardId);
+      const tasks = await getBoardTasks(boardId);
       dispatch({ type: 'LOAD_TASKS', payload: tasks });
     }
 
