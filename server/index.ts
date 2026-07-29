@@ -8,8 +8,9 @@ import {
 } from './controllers/taskController';
 
 import {
-  getBoardController,
   getBoardsController,
+  getBoardController,
+  createBoardController,
   getBoardTasksController,
 } from './controllers/boardControllers';
 
@@ -36,6 +37,12 @@ app.patch('/tasks/:taskId', updateTaskController);
 app.get('/boards', getBoardsController);
 
 app.get('/boards/:boardId', getBoardController);
+
+app.post('/boards', createBoardController);
+
+app.delete('/boards/:boardId', deleteTaskController);
+
+app.patch('/boards/:boardId', updateTaskController);
 
 app.get('/boards/:boardId/tasks', getBoardTasksController);
 

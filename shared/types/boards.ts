@@ -9,6 +9,13 @@ export type Board = {
   tasks?: Task[];
 };
 
+export type CreateBoardInput = {
+  title: string;
+  description: string;
+};
+
+export type BoardUpdates = Partial<Pick<Board, 'title' | 'description'>>;
+
 export type BoardIdParams = {
   boardId: string;
 };
