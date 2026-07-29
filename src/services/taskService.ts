@@ -2,6 +2,13 @@ import type { Task, TaskUpdates } from '../../shared/types/tasks';
 
 const API_URL = 'http://localhost:3000';
 
+/**
+ * Deletes a task by its ID.
+ *
+ * @param taskId - The ID of the task to delete.
+ * @returns A promise that resolves when the task has been deleted.
+ * @throws {Error} If the request fails.
+ */
 export async function deleteTask(taskId: string): Promise<void> {
   const resp = await fetch(`${API_URL}/tasks/${taskId}`, {
     method: 'DELETE',
@@ -12,6 +19,13 @@ export async function deleteTask(taskId: string): Promise<void> {
   }
 }
 
+/**
+ * Creates a new task.
+ *
+ * @param newTask - The task to create.
+ * @returns A promise that resolves to the created task.
+ * @throws {Error} If the request fails.
+ */
 export async function createTask(newTask: Task): Promise<Task> {
   const resp = await fetch(`${API_URL}/tasks`, {
     method: 'POST',
@@ -30,6 +44,14 @@ export async function createTask(newTask: Task): Promise<Task> {
   return createdTask;
 }
 
+/**
+ * Updates an existing task.
+ *
+ * @param taskId - The ID of the task to update.
+ * @param updates - The fields to update on the task.
+ * @returns A promise that resolves to the updated task.
+ * @throws {Error} If the request fails.
+ */
 export async function updateTask(
   taskId: string,
   updates: TaskUpdates,

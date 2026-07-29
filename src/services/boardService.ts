@@ -2,6 +2,12 @@ import type { Board } from '../../shared/types/boards';
 
 const API_URL = 'http://localhost:3000';
 
+/**
+ * Fetches all boards from the API.
+ *
+ * @returns A promise that resolves to the list of boards.
+ * @throws {Error} If the request fails.
+ */
 export async function getBoards(): Promise<Board[]> {
   const resp = await fetch(`${API_URL}/boards`);
 
@@ -14,6 +20,13 @@ export async function getBoards(): Promise<Board[]> {
   return boards;
 }
 
+/**
+ * Fetches a single board by its ID.
+ *
+ * @param boardId - The ID of the board to retrieve.
+ * @returns A promise that resolves to the requested board.
+ * @throws {Error} If the request fails.
+ */
 export async function getBoard(boardId: string): Promise<Board> {
   const resp = await fetch(`${API_URL}/boards/${boardId}`);
 
