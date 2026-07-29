@@ -9,6 +9,7 @@ export type TaskFormState = {
   priority: TaskPriority;
   dueDate: string;
   tags: string[];
+  boardId: string;
 };
 
 export type TaskAction =

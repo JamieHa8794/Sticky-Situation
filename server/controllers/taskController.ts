@@ -1,24 +1,10 @@
 import type { Request, Response } from 'express';
-import {
-  getAllTasks,
-  deleteTask,
-  createTask,
-  updateTask,
-} from '../services/taskService';
-import type { CreateTaskInput, TaskUpdates } from '../../shared/types/tasks';
-
-type TaskIdParams = {
-  taskId: string;
-};
-
-export async function getTasksController(
-  _req: Request,
-  res: Response,
-): Promise<void> {
-  const tasks = await getAllTasks();
-
-  res.json(tasks);
-}
+import { deleteTask, createTask, updateTask } from '../services/taskService';
+import type {
+  CreateTaskInput,
+  TaskUpdates,
+  TaskIdParams,
+} from '../../shared/types/tasks';
 
 export function deleteTaskController(
   req: Request<TaskIdParams>,

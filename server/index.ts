@@ -2,11 +2,16 @@ import express from 'express';
 import cors from 'cors';
 
 import {
-  createTaskController,
   deleteTaskController,
-  getTasksController,
+  createTaskController,
   updateTaskController,
 } from './controllers/taskController';
+
+import {
+  getBoardController,
+  getBoardsController,
+  getBoardTasksController,
+} from './controllers/boardControllers';
 
 const app = express();
 
@@ -18,13 +23,21 @@ app.use(
 
 app.use(express.json());
 
-app.get('/tasks', getTasksController);
+// Task routes
 
 app.delete('/tasks/:taskId', deleteTaskController);
 
 app.post('/tasks', createTaskController);
 
 app.patch('/tasks/:taskId', updateTaskController);
+
+// Board routes
+
+app.get('/boards', getBoardsController);
+
+app.get('/boards/:boardId', getBoardController);
+
+app.get('/boards/:boardId/tasks', getBoardTasksController);
 
 app.get('/health', (req, res) => {
   res.json({

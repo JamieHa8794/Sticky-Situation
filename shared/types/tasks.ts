@@ -9,6 +9,7 @@ export type Task = {
   priority: TaskPriority;
   dueDate: string;
   tags: string[];
+  boardId: string;
 };
 
 export type CreateTaskInput = Omit<Task, 'id'>;
@@ -16,3 +17,7 @@ export type CreateTaskInput = Omit<Task, 'id'>;
 export type TaskUpdates = Partial<
   Pick<Task, 'title' | 'description' | 'status' | 'priority' | 'dueDate'>
 >;
+
+export type TaskIdParams = {
+  taskId: string;
+};

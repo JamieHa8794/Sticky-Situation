@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useState } from 'react';
+import { useParams } from 'react-router';
 
 import Column from './Column';
 import TaskFormModal from './TaskFormModal';
@@ -8,21 +9,25 @@ import type { Task, TaskStatus } from '../../shared/types/tasks';
 import type { TaskAction, sortOptions } from '../types/task';
 import { PRIORITY_ORDER } from '../types/task';
 
-import { columns, boardTitle, boardSubtitle } from '../data/board';
+import { columns } from '../data/board';
 
-import '../styles/BoardPage.css';
 import DeleteModal from './DeleteModal';
+
 import {
   createTask,
   deleteTask,
   getTasks,
   updateTask,
 } from '../services/taskService';
+
+import { getBoard } from '../services/boardService';
+
+import '../styles/BoardPage.css';
 // import { EllipsisVertical } from 'lucide-react';
 
 function BoardPage() {
-  const [title, setTitle] = useState(boardTitle);
-  const [subtitle, setSubtitle] = useState(boardSubtitle);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   const [tasks, dispatch] = useReducer(taskReducer, []);
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null);
@@ -35,15 +40,30 @@ function BoardPage() {
   const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
   const [hoveredColumn, setHoveredColumn] = useState<string | null>(null);
 
+  const { boardId } = useParams();
+
   useEffect(() => {
-    async function loadTasks() {
-      const tasks = await getTasks();
+    if (!boardId) return;
+
+    async function loadTasks(boardId: string) {
+      const tasks = await getTasks(boardId);
       dispatch({ type: 'LOAD_TASKS', payload: tasks });
     }
-    void loadTasks();
-  }, []);
+
+    async function loadBoard(boardId: string) {
+      const board = await getBoard(boardId);
+      setTitle(board.title);
+      setDescription(board.description);
+    }
+
+    void loadTasks(boardId);
+    void loadBoard(boardId);
+  }, [boardId]);
 
   async function handleSubmitTask(task: Task, type: string) {
+    if (!boardId) {
+      throw new Error('Board ID is missing.');
+    }
     const { id, title, description, status, priority, dueDate, tags } = task;
     const newTask: Task = {
       id,
@@ -53,6 +73,7 @@ function BoardPage() {
       priority,
       dueDate,
       tags,
+      boardId,
     };
     if (type === 'create') {
       const createdTask = await createTask(newTask);
@@ -189,7 +210,7 @@ function BoardPage() {
       <div className="board-header">
         <div className="board-header-start">
           <div className="board-title">{title}</div>
-          <div className="board-subtitle">{subtitle}</div>
+          <div className="board-description">{description}</div>
         </div>
         {/* <div className="board-header-end">
           <button className="btn icon">

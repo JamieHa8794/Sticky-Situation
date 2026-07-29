@@ -1,10 +1,10 @@
 import { Prisma } from '../generated/prisma/client';
 import { prisma } from '../lib/prisma';
-import { Task, CreateTaskInput, TaskUpdates } from '../../shared/types/tasks';
-
-export async function getAllTasks(): Promise<Task[]> {
-  return prisma.task.findMany();
-}
+import type {
+  Task,
+  CreateTaskInput,
+  TaskUpdates,
+} from '../../shared/types/tasks';
 
 export function createTask(newTask: CreateTaskInput): Promise<Task> {
   return prisma.task.create({ data: newTask });

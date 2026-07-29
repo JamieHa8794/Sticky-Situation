@@ -1,6 +1,20 @@
 import { prisma } from '../server/lib/prisma';
 import { Task } from '../shared/types/tasks';
 
+type SeedBoard = {
+  id: string;
+  title: string;
+  description: string;
+};
+
+const seedBoards: SeedBoard[] = [
+  {
+    id: 'seed-board-1',
+    title: 'Project Dashboard',
+    description: 'Track progres and ship great work',
+  },
+];
+
 const seedTasks: Task[] = [
   {
     id: 'seed-1',
@@ -10,6 +24,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-06-22',
     tags: ['setup', 'vite', 'react'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-2',
@@ -20,6 +35,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-06-24',
     tags: ['react', 'components', 'ui'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-3',
@@ -30,6 +46,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-06-27',
     tags: ['crud', 'state', 'react'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-4',
@@ -40,6 +57,7 @@ const seedTasks: Task[] = [
     priority: 'medium',
     dueDate: '2026-06-29',
     tags: ['local-storage', 'persistence'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-5',
@@ -50,6 +68,7 @@ const seedTasks: Task[] = [
     priority: 'medium',
     dueDate: '2026-07-01',
     tags: ['architecture', 'react', 'reducer'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-6',
@@ -60,6 +79,7 @@ const seedTasks: Task[] = [
     priority: 'medium',
     dueDate: '',
     tags: ['typescript', 'data-model'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-7',
@@ -70,6 +90,7 @@ const seedTasks: Task[] = [
     priority: 'medium',
     dueDate: '2026-07-03',
     tags: ['search', 'filters', 'sorting'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-8',
@@ -80,6 +101,7 @@ const seedTasks: Task[] = [
     priority: 'medium',
     dueDate: '2026-07-05',
     tags: ['modal', 'ux', 'forms'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-9',
@@ -90,6 +112,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-07',
     tags: ['drag-drop', 'interaction'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-10',
@@ -100,6 +123,7 @@ const seedTasks: Task[] = [
     priority: 'medium',
     dueDate: '2026-07-09',
     tags: ['design-system', 'css', 'tokens'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-11',
@@ -110,6 +134,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-11',
     tags: ['ui', 'css', 'portfolio'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-12',
@@ -120,6 +145,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-12',
     tags: ['architecture', 'services', 'frontend'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-13',
@@ -130,6 +156,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-13',
     tags: ['express', 'typescript', 'backend'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-14',
@@ -140,6 +167,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-14',
     tags: ['controllers', 'services', 'architecture'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-15',
@@ -150,6 +178,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-15',
     tags: ['rest-api', 'crud', 'backend'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-16',
@@ -160,6 +189,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-17',
     tags: ['postgresql', 'prisma', 'database'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-17',
@@ -170,6 +200,7 @@ const seedTasks: Task[] = [
     priority: 'medium',
     dueDate: '',
     tags: ['database', 'seed', 'development'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-18',
@@ -180,6 +211,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-19',
     tags: ['readme', 'github', 'portfolio'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-19',
@@ -189,6 +221,7 @@ const seedTasks: Task[] = [
     priority: 'low',
     dueDate: '',
     tags: ['collaboration', 'feature'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-20',
@@ -198,6 +231,7 @@ const seedTasks: Task[] = [
     priority: 'low',
     dueDate: '',
     tags: ['workflow', 'feature'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-21',
@@ -208,6 +242,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-21',
     tags: ['api', 'ux', 'error-handling'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-22',
@@ -218,6 +253,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-23',
     tags: ['boards', 'prisma', 'data-model'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-23',
@@ -228,6 +264,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-25',
     tags: ['boards', 'rest-api', 'backend'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-24',
@@ -238,6 +275,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-27',
     tags: ['boards', 'tasks', 'database'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-25',
@@ -248,6 +286,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '',
     tags: ['routing', 'react', 'navigation'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-26',
@@ -258,6 +297,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-07-30',
     tags: ['boards', 'page', 'frontend'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-27',
@@ -268,6 +308,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-08-01',
     tags: ['boards', 'routing', 'frontend'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-28',
@@ -278,6 +319,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-08-03',
     tags: ['auth', 'users', 'security'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-29',
@@ -288,6 +330,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-08-04',
     tags: ['authorization', 'security', 'boards'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-30',
@@ -298,6 +341,7 @@ const seedTasks: Task[] = [
     priority: 'medium',
     dueDate: '',
     tags: ['assignees', 'users', 'tasks'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-31',
@@ -308,6 +352,7 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-08-06',
     tags: ['testing', 'vitest', 'api'],
+    boardId: 'seed-board-1',
   },
   {
     id: 'seed-32',
@@ -318,10 +363,21 @@ const seedTasks: Task[] = [
     priority: 'high',
     dueDate: '2026-08-08',
     tags: ['deployment', 'portfolio', 'release'],
+    boardId: 'seed-board-1',
   },
 ];
 
 async function main(): Promise<void> {
+  for (const board of seedBoards) {
+    await prisma.board.upsert({
+      where: {
+        id: board.id,
+      },
+      update: board,
+      create: board,
+    });
+  }
+
   for (const task of seedTasks) {
     await prisma.task.upsert({
       where: {

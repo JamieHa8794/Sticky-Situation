@@ -40,6 +40,7 @@ function TaskFormModal(props: CreateTaskProps) {
         priority: editTask.priority,
         dueDate: editTask.dueDate,
         tags: editTask.tags,
+        boardId: editTask.boardId,
       }
     : {
         title: '',
@@ -48,6 +49,7 @@ function TaskFormModal(props: CreateTaskProps) {
         priority: 'medium',
         dueDate: '',
         tags: [],
+        boardId: '',
       };
 
   const [formState, setFormState] = useState<TaskFormState>(initialFormState);
@@ -65,6 +67,7 @@ function TaskFormModal(props: CreateTaskProps) {
       priority: formState.priority,
       dueDate: formState.dueDate,
       tags: formattedTags,
+      boardId: formState.boardId,
     };
     const type = editTask ? 'edit' : 'create';
     handleSubmitTask(task, type);
@@ -80,6 +83,7 @@ function TaskFormModal(props: CreateTaskProps) {
       priority: 'medium',
       dueDate: '',
       tags: [],
+      boardId: '',
     });
   }
 
