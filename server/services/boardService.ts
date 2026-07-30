@@ -20,6 +20,15 @@ export function createBoard(newBoard: CreateBoardInput): Promise<Board> {
   });
 }
 
+/**
+ * Deletes a board by its ID.
+ *
+ * Associated tasks are automatically deleted by the database
+ * via the foreign key's `onDelete: Cascade` relationship.
+ *
+ * @param boardId - The ID of the board to delete.
+ * @returns The deleted board.
+ */
 export function deleteBoard(boardId: string): Promise<Board> {
   return prisma.board.delete({
     where: {

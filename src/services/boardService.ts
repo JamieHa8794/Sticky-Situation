@@ -1,4 +1,8 @@
-import type { Board, BoardUpdates } from '../../shared/types/boards';
+import type {
+  Board,
+  BoardUpdates,
+  CreateBoardInput,
+} from '../../shared/types/boards';
 import type { Task } from '../../shared/types/tasks';
 
 const API_URL = 'http://localhost:3000';
@@ -47,7 +51,7 @@ export async function getBoard(boardId: string): Promise<Board> {
  * @returns A promise that resolves to the created board.
  * @throws {Error} If the request fails.
  */
-export async function createBoard(newBoard: Board): Promise<Board> {
+export async function createBoard(newBoard: CreateBoardInput): Promise<Board> {
   const resp = await fetch(`${API_URL}/boards`, {
     method: 'POST',
     headers: {

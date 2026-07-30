@@ -12,3 +12,8 @@ export type BoardsAction =
   | { type: 'ADD_BOARD'; payload: Board }
   | { type: 'UPDATE_BOARD'; payload: Board }
   | { type: 'DELETE_BOARD'; payload: string | null };
+
+export type BoardFormState = {
+  title: string;
+  description: string;
+};

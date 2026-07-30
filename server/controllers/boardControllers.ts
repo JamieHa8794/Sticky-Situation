@@ -26,7 +26,7 @@ export async function getBoardsController(
     return;
   }
 
-  res.json(boards);
+  res.status(200).json(boards);
 }
 
 export async function getBoardController(
@@ -44,7 +44,7 @@ export async function getBoardController(
     return;
   }
 
-  res.json(board);
+  res.status(200).json(board);
 }
 
 export async function createBoardController(
@@ -73,7 +73,7 @@ export async function deleteBoardController(
     return;
   }
 
-  res.status(202).send();
+  res.status(204).send();
 }
 
 export async function updateBoardController(
@@ -92,7 +92,7 @@ export async function updateBoardController(
     return;
   }
 
-  res.send(202).send(updatedBoard);
+  res.status(200).send(updatedBoard);
 }
 
 export async function getBoardTasksController(
@@ -103,5 +103,5 @@ export async function getBoardTasksController(
 
   const tasks = await getBoardTasks(boardId);
 
-  res.json(tasks);
+  res.status(200).json(tasks);
 }
