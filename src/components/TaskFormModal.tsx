@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
-import type { Task } from '../../shared/types/tasks';
+import type { Task, CreateTaskInput } from '../../shared/types/tasks';
 import type { TaskFormState } from '../types/task';
 import CustomDropdown from './customDropdown';
 import { priorityList, taskStatusList } from '../data/tasks';
+import { getChangedFields } from '../utils';
 
 type CreateTaskProps = {
   tasks: Task[];
   currentlyEditing: string | null;
-  handleSubmitTask: (task: Task, type: string) => void;
+  handleSubmitCreateTask: (task: CreateTaskInput) => void;
+  handleSubmitEditTask: (taskId: string, task: Partial<Task>) => void;
   handleSetEditTask: (id: string | null) => void;
   handleToggleTaskFormModal: () => void;
 };
@@ -17,7 +19,8 @@ function TaskFormModal(props: CreateTaskProps) {
   const {
     tasks,
     currentlyEditing,
-    handleSubmitTask,
+    handleSubmitCreateTask,
+    handleSubmitEditTask,
     handleSetEditTask,
     handleToggleTaskFormModal,
   } = props;
@@ -55,22 +58,30 @@ function TaskFormModal(props: CreateTaskProps) {
   const [formState, setFormState] = useState<TaskFormState>(initialFormState);
 
   function onSubmitTask() {
+    const type = editTask ? 'edit' : 'create';
+
     const formattedTags = formState.tags
       .filter((x) => x.trim() !== '')
       .map((x) => x.trim());
 
-    const task: Task = {
-      id: editTask?.id || crypto.randomUUID(),
-      title: formState.title.trim(),
-      description: formState.description.trim(),
-      status: formState.status,
-      priority: formState.priority,
-      dueDate: formState.dueDate,
-      tags: formattedTags,
-      boardId: formState.boardId,
-    };
-    const type = editTask ? 'edit' : 'create';
-    handleSubmitTask(task, type);
+    if (type === 'create') {
+      const task: CreateTaskInput = {
+        title: formState.title.trim(),
+        description: formState.description.trim(),
+        status: formState.status,
+        priority: formState.priority,
+        dueDate: formState.dueDate,
+        tags: formattedTags,
+        boardId: formState.boardId,
+      };
+
+      handleSubmitCreateTask(task);
+    } else {
+      if (!editTask) return;
+      const updatedTasks = getChangedFields(initialFormState, formState);
+      handleSubmitEditTask(editTask.id, updatedTasks);
+    }
+
     resetChanges();
   }
 

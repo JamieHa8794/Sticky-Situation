@@ -1,4 +1,8 @@
-import type { Task, TaskUpdates } from '../../shared/types/tasks';
+import type {
+  Task,
+  TaskUpdates,
+  CreateTaskInput,
+} from '../../shared/types/tasks';
 
 const API_URL = 'http://localhost:3000';
 
@@ -26,7 +30,7 @@ export async function deleteTask(taskId: string): Promise<void> {
  * @returns A promise that resolves to the created task.
  * @throws {Error} If the request fails.
  */
-export async function createTask(newTask: Task): Promise<Task> {
+export async function createTask(newTask: CreateTaskInput): Promise<Task> {
   const resp = await fetch(`${API_URL}/tasks`, {
     method: 'POST',
     headers: {

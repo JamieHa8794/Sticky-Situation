@@ -5,7 +5,11 @@ import Column from './Column';
 import TaskFormModal from './TaskFormModal';
 import BoardToolbar from './BoardToolbar';
 
-import type { Task, TaskStatus } from '../../shared/types/tasks';
+import type {
+  Task,
+  TaskStatus,
+  CreateTaskInput,
+} from '../../shared/types/tasks';
 import type { TaskAction, sortOptions } from '../types/task';
 import { PRIORITY_ORDER } from '../types/task';
 
@@ -55,13 +59,12 @@ function BoardPage() {
     void loadBoard(boardId);
   }, [boardId]);
 
-  async function handleSubmitTask(task: Task, type: string) {
+  async function handleSubmitCreateTask(task: CreateTaskInput) {
     if (!boardId) {
       throw new Error('Board ID is missing.');
     }
-    const { id, title, description, status, priority, dueDate, tags } = task;
-    const newTask: Task = {
-      id,
+    const { title, description, status, priority, dueDate, tags } = task;
+    const newTask: CreateTaskInput = {
       title,
       description,
       status,
@@ -70,13 +73,18 @@ function BoardPage() {
       tags,
       boardId,
     };
-    if (type === 'create') {
-      const createdTask = await createTask(newTask);
-      dispatch({ type: 'ADD_TASK', payload: createdTask });
-    } else if (type === 'edit') {
-      await updateTask(newTask.id, newTask);
-      dispatch({ type: 'UPDATE_TASK', payload: newTask });
+
+    const createdTask = await createTask(newTask);
+    dispatch({ type: 'ADD_TASK', payload: createdTask });
+  }
+
+  async function handleSubmitEditTask(taskId: string, task: Partial<Task>) {
+    if (!boardId) {
+      throw new Error('Board ID is missing.');
     }
+
+    const updatedTask = await updateTask(taskId, task);
+    dispatch({ type: 'UPDATE_TASK', payload: updatedTask });
   }
 
   function handleSetEditTask(id: string | null) {
@@ -255,7 +263,8 @@ function BoardPage() {
       {isTaskFormModalOpen ? (
         <TaskFormModal
           tasks={tasks}
-          handleSubmitTask={handleSubmitTask}
+          handleSubmitCreateTask={handleSubmitCreateTask}
+          handleSubmitEditTask={handleSubmitEditTask}
           currentlyEditing={currentlyEditing}
           handleSetEditTask={handleSetEditTask}
           handleToggleTaskFormModal={handleToggleTaskFormModal}

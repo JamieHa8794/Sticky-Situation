@@ -17,3 +17,18 @@ export function formatToProperCase(text: string) {
     })
     .join(' ');
 }
+
+export function getChangedFields<T extends object>(
+  initialValues: T,
+  currentValues: T,
+): Partial<T> {
+  const updates: Partial<T> = {};
+  const keys = Object.keys(currentValues) as Array<keyof T>;
+  keys.forEach((key) => {
+    if (initialValues[key] !== currentValues[key]) {
+      updates[key] = currentValues[key];
+    }
+  });
+
+  return updates;
+}
