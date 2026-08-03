@@ -43,6 +43,7 @@ ul.boards-list {
   border-radius: var(--radius-lg);
 
   padding: var(--space-8);
+  margin: var(--space-8) auto;
 }
 .empty-state-board .message {
   margin: 0 0 var(--space-2);
