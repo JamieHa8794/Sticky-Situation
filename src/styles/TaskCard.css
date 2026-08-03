@@ -1,4 +1,4 @@
-.card-container {
+.task-card {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -9,7 +9,8 @@
   padding: var(--space-4);
   box-shadow: var(--shadow-sm);
 }
-.card-container:hover {
+
+.task-card:hover {
   box-shadow: var(--shadow-md);
   border-color: var(--color-primary-100);
 
@@ -18,24 +19,29 @@
   transition: 150ms ease;
   transform: translateY(-2px);
 }
-.card-container.dragged {
+
+.task-card.dragged {
   box-shadow: var(--shadow-lg);
 }
-.card-header {
+
+.task-card .card-header {
   display: flex;
   justify-content: space-between;
 }
-.card-title {
+
+.task-card .card-title {
   font-size: var(--font-size-body-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
 }
-.card-body {
+
+.task-card .card-body {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
 }
-.card-description {
+
+.task-card .card-description {
   line-clamp: 2;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -49,25 +55,28 @@
   padding-right: 20px;
 }
 
-.tag-container {
+.task-card .tag-container {
   display: flex;
   gap: var(--space-2);
 }
-.tag-container li {
+
+.task-card .tag-container li {
   list-style-type: none;
   padding: 0 5px;
 }
 
-.card-footer {
+.task-card .card-footer {
   display: flex;
   justify-content: space-between;
 }
-.card-footer-start {
+
+.task-card .card-footer-start {
   display: flex;
   align-items: center;
   gap: 5px;
 }
-.due-date {
+
+.task-card .due-date {
   color: var(--text-secondary);
   font-size: var(--font-size-body);
 }

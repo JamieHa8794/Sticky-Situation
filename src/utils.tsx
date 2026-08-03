@@ -32,3 +32,15 @@ export function getChangedFields<T extends object>(
 
   return updates;
 }
+
+export function getDaysAgo(date: string): number {
+  const today = new Date();
+  const prevDate = new Date(date);
+  const millisecondsDifference = today.getTime() - prevDate.getTime();
+
+  const daysDifference = Math.floor(
+    millisecondsDifference / (1000 * 60 * 60 * 24),
+  );
+
+  return daysDifference;
+}

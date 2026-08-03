@@ -1,20 +1,36 @@
 import { prisma } from '../lib/prisma';
 
-import type { Board, CreateBoardInput } from '../../shared/types/boards';
+import type { BoardRecord, CreateBoardInput } from '../../shared/types/boards';
 import type { Task } from '../../shared/types/tasks';
 import { BoardUpdateInput } from '../generated/prisma/models';
 
-export function getBoards(): Promise<Board[]> {
-  return prisma.board.findMany();
+export async function getBoards(): Promise<BoardRecord[]> {
+  const boards = await prisma.board.findMany({
+    include: {
+      _count: {
+        select: {
+          tasks: true,
+        },
+      },
+    },
+  });
+
+  return boards.map((board) => {
+    const { _count, ...boardData } = board;
+    return {
+      ...boardData,
+      taskCount: _count.tasks,
+    };
+  });
 }
 
-export function getBoard(boardId: string): Promise<Board | null> {
+export function getBoard(boardId: string): Promise<BoardRecord | null> {
   return prisma.board.findUnique({
     where: { id: boardId },
   });
 }
 
-export function createBoard(newBoard: CreateBoardInput): Promise<Board> {
+export function createBoard(newBoard: CreateBoardInput): Promise<BoardRecord> {
   return prisma.board.create({
     data: newBoard,
   });
@@ -29,7 +45,7 @@ export function createBoard(newBoard: CreateBoardInput): Promise<Board> {
  * @param boardId - The ID of the board to delete.
  * @returns The deleted board.
  */
-export function deleteBoard(boardId: string): Promise<Board> {
+export function deleteBoard(boardId: string): Promise<BoardRecord> {
   return prisma.board.delete({
     where: {
       id: boardId,
@@ -40,7 +56,7 @@ export function deleteBoard(boardId: string): Promise<Board> {
 export function updateBoard(
   boardId: string,
   updates: BoardUpdateInput,
-): Promise<Board> {
+): Promise<BoardRecord> {
   return prisma.board.update({
     where: {
       id: boardId,

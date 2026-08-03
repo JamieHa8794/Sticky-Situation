@@ -71,6 +71,7 @@ function BoardFormModal(props: BoardFormProps) {
       await handleSubmitEditForm(boardId, boardDetails);
     }
 
+    setCurrentlyEditting(null);
     setShowForm(false);
   }
 

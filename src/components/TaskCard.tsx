@@ -33,7 +33,7 @@ function TaskCard(props: TaskCardProps) {
 
   return (
     <div
-      className={`card-container ${isDragged ? 'dragged' : ''}`}
+      className={`task-card ${isDragged ? 'dragged' : ''}`}
       draggable
       onDragStart={() => {
         handleDragStart(id);

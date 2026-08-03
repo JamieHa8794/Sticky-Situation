@@ -18,6 +18,10 @@
   width: 32px;
   height: 32px;
 }
+.icon.xxl {
+  width: 56px;
+  height: 56px;
+}
 
 .icon.primary {
   color: var(--color-primary-700);
@@ -46,4 +50,22 @@
 .icon.light-primary {
   color: var(--color-primary-500);
   opacity: 0.6;
+}
+
+.card-icon {
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+}
+
+.bg-light-primary {
+  background-color: var(--color-primary-200);
+}
+.bg-light-grey {
+  background-color: var(--gray-200);
+}
+.bg-success {
+  background-color: var(--success-50);
+}
+.bg-danger {
+  background-color: var(--error-200);
 }

@@ -1,12 +1,18 @@
-import type { Task } from './tasks';
-
-export type Board = {
+type BoardBase = {
   id: string;
   title: string;
   description: string;
+  taskCount?: number;
+};
+
+export type Board = BoardBase & {
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type BoardRecord = BoardBase & {
   createdAt?: Date;
   updatedAt?: Date;
-  tasks?: Task[];
 };
 
 export type CreateBoardInput = {

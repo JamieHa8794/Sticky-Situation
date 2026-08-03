@@ -1,5 +1,4 @@
 import { useEffect, useReducer, useState } from 'react';
-import { Link } from 'react-router';
 
 import type { Board } from '../../shared/types/boards';
 
@@ -11,6 +10,10 @@ import {
   updateBoard,
 } from '../services/boardService';
 import BoardFormModal from './BoardFormModal';
+import BoardCard from './BoardCard';
+
+import '../styles/BoardList.css';
+import { FolderOpen, Plus } from 'lucide-react';
 
 function BoardsList() {
   const [boards, dispatch] = useReducer(boardsReducer, []);
@@ -42,8 +45,6 @@ function BoardsList() {
   }
 
   function handleConfirmDelete(boardId: string) {
-    console.log(boards);
-    console.log(boardId);
     const confirmed = window.confirm(
       'Are you sure you want to delete this board? Doing so will delete all associated tickets',
     );
@@ -53,15 +54,72 @@ function BoardsList() {
     }
   }
 
+  const showEmptyState = boards.length === 0;
+
+  function getEmptyState() {
+    return (
+      <div className="boards-page">
+        <div className="empty-state-board">
+          <FolderOpen className="icon light-primary xxl" />
+          <div className="message">No boards yet</div>
+          <div className="sub-message">
+            Create your first board to start orgainizing tasks
+          </div>
+          <button
+            className="btn primary"
+            onClick={() => setShowForm(!showForm)}
+          >
+            <Plus className="icon md" />
+            Create Board
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <div>This is a placehodler page for boards list</div>
-      <br />
-      {!showForm ? (
-        <button onClick={() => setShowForm(!showForm)}>Create Board</button>
+      {showEmptyState ? (
+        getEmptyState()
       ) : (
-        ''
+        <div className="boards-page">
+          <div className="page-header">
+            <div className="page-header-start">
+              <div className="page-title">Boards</div>
+              <div className="page-description">
+                Create and manage your project boards
+              </div>
+            </div>
+            <div className="page-header-end">
+              <button
+                className="btn primary"
+                onClick={() => setShowForm(!showForm)}
+              >
+                <Plus className="icon md" />
+                Create Board
+              </button>
+            </div>
+          </div>
+          <div className="page-main">
+            <ul className="boards-list">
+              {boards.map((board) => {
+                return (
+                  <li key={board.id}>
+                    <BoardCard
+                      boards={boards}
+                      boardId={board.id}
+                      setCurrentlyEditing={setCurrentlyEditing}
+                      setShowForm={setShowForm}
+                      handleConfirmDelete={handleConfirmDelete}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
       )}
+
       {showForm ? (
         <BoardFormModal
           boards={boards}
@@ -74,26 +132,6 @@ function BoardsList() {
       ) : (
         ''
       )}
-      <ul>
-        {boards.map((board) => {
-          return (
-            <li key={board.id}>
-              <Link to={`/boards/${board.id}`}>{board.title}</Link>
-              <button
-                onClick={() => {
-                  setCurrentlyEditing(board.id);
-                  setShowForm(true);
-                }}
-              >
-                Edit Board
-              </button>
-              <button onClick={() => handleConfirmDelete(board.id)}>
-                Delete Board
-              </button>
-            </li>
-          );
-        })}
-      </ul>
     </div>
   );
 }

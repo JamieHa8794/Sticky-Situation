@@ -81,6 +81,42 @@ button.btn.destructive:disabled {
   color: var(--color-error-300);
 }
 
+button.btn.icon.destructive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+
+  color: var(--error-600);
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+button.btn.icon.destructive:hover {
+  background: var(--error-50);
+  border-color: var(--error-300);
+  color: var(--error-700);
+}
+
+button.btn.icon.destructive:active {
+  background: var(--error-100);
+  border-color: var(--error-600);
+  color: var(--error-800);
+}
+
+button.btn.icon.destructive:disabled {
+  background: transparent;
+  border-color: var(--border-disabled);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
 /* Outlined Button */
 button.btn.outlined {
   background: var(--bg-surface-elevated);
@@ -113,5 +149,10 @@ button.btn.icon {
 button.btn.icon:hover {
   background: var(--gray-100);
   box-shadow: var(--shadow-md);
+  border-radius: var(--radius-sm);
+}
+
+button.btn.icon.outlined {
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-sm);
 }
