@@ -15,7 +15,7 @@ import { PRIORITY_ORDER } from '../types/task';
 
 import { columns } from '../data/board';
 
-import DeleteModal from './DeleteModal';
+import DeleteModal from './DeleteTaskModal';
 
 import { createTask, deleteTask, updateTask } from '../services/taskService';
 
