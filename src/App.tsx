@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router';
 
-import BoardsList from './components/BoardsList';
-import BoardPage from './components/BoardPage';
+import BoardsList from './components/Boards/BoardsList';
+import BoardPage from './components/Boards/BoardPage';
 import NavBar from './components/Navbar';
 import Homepage from './components/Homepage';
 
-import './styles/App.css';
+import './styles/base/App.css';
 
 function App() {
   return (

@@ -1,10 +1,10 @@
-import { taskStatusList, priorityList } from '../data/tasks';
-import type { sortOptions } from '../types/task';
-import { sortList } from '../data/board';
+import { taskStatusList, priorityList } from '../../data/tasks';
+import type { sortOptions } from '../../types/task';
+import { sortList } from '../../data/board';
 
-import '../styles/BoardToolbar.css';
+import '../../styles/boards/BoardToolbar.css';
 import { Plus, Search } from 'lucide-react';
-import CustomDropdown from './customDropdown';
+import CustomDropdown from '../customComponents/customDropdown';
 
 type BoardToolbarProps = {
   handleToggleTaskFormModal: () => void;

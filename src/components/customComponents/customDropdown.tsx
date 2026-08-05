@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import '../styles/customDropdown.css';
+import '../../styles/UI/customDropdown.css';
 import type { LucideIcon } from 'lucide-react';
 import { ChevronDown, Check } from 'lucide-react';
-import type { SelectOption, OptionTone } from '../types/common';
+import type { SelectOption, OptionTone } from '../../types/common';
 
 type CustomDropdownProps<T> = {
   options: { name: string; key: T; icon?: LucideIcon; tone?: OptionTone }[];

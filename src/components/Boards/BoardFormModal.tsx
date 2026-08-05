@@ -2,17 +2,17 @@ import { useState } from 'react';
 
 import IconModal from './IconModal';
 
-import { getChangedFields } from '../utils';
+import { getChangedFields } from '../../utils';
 
-import { BOARD_ICON_OPTIONS } from '../data/icons';
+import { BOARD_ICON_OPTIONS } from '../../data/icons';
 
-import type { Board } from '../../shared/types/boards';
-import type { BoardFormState } from '../types/board';
-import type { BoardIconName } from '../types/icons';
+import type { Board } from '../../../shared/types/boards';
+import type { BoardFormState } from '../../types/board';
+import type { BoardIconName } from '../../types/icons';
 
 import { Image, Rocket } from 'lucide-react';
 
-import '../styles/BoardFormModal.css';
+import '../../styles/boards/BoardFormModal.css';
 
 type BoardFormProps = {
   boards: Board[];

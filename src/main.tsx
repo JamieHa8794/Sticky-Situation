@@ -2,13 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 
-import './styles/tokens.css';
-import './styles/global.css';
-import './styles/button.css';
-import './styles/input.css';
-import './styles/icons.css';
-import './styles/badges.css';
-import './styles/modal.css';
+import './styles/base/tokens.css';
+import './styles/base/global.css';
+import './styles/UI/button.css';
+import './styles/UI/input.css';
+import './styles/UI/icons.css';
+import './styles/UI/badges.css';
+import './styles/UI/modal.css';
 
 import App from './App.tsx';
 

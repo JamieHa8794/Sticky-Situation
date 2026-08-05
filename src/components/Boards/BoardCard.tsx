@@ -1,8 +1,9 @@
 import { Link } from 'react-router';
-import type { Board } from '../../shared/types/boards';
-import { BOARD_ICON_OPTIONS } from '../data/icons';
+import type { Board } from '../../../shared/types/boards';
+import { BOARD_ICON_OPTIONS } from '../../data/icons';
 
-import '../styles/BoardCard.css';
+import '../../styles/boards/BoardCard.css';
+
 import {
   ArrowRight,
   Pencil,
@@ -11,7 +12,7 @@ import {
   Clock4,
   Rocket,
 } from 'lucide-react';
-import { getDaysAgo } from '../utils';
+import { getDaysAgo } from '../../utils';
 
 type BoardCardProps = {
   boards: Board[];

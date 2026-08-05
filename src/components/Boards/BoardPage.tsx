@@ -1,28 +1,27 @@
 import { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router';
 
-import Column from './Column';
-import TaskFormModal from './TaskFormModal';
+import Column from '../Tasks/TaskColumn';
+import TaskFormModal from '../Tasks/TaskFormModal';
 import BoardToolbar from './BoardToolbar';
 
 import type {
   Task,
   TaskStatus,
   CreateTaskInput,
-} from '../../shared/types/tasks';
-import type { TaskAction, sortOptions } from '../types/task';
-import { PRIORITY_ORDER } from '../types/task';
+} from '../../../shared/types/tasks';
+import type { TaskAction, sortOptions } from '../../types/task';
+import { PRIORITY_ORDER } from '../../types/task';
 
-import { columns } from '../data/board';
+import { columns } from '../../data/board';
 
-import DeleteModal from './DeleteTaskModal';
+import DeleteModal from '../Tasks/DeleteTaskModal';
 
-import { createTask, deleteTask, updateTask } from '../services/taskService';
+import { createTask, deleteTask, updateTask } from '../../services/taskService';
 
-import { getBoard, getBoardTasks } from '../services/boardService';
+import { getBoard, getBoardTasks } from '../../services/boardService';
 
-import '../styles/BoardPage.css';
-// import { EllipsisVertical } from 'lucide-react';
+import '../../styles/boards/BoardPage.css';
 
 function BoardPage() {
   const [title, setTitle] = useState('');

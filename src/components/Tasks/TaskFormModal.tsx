@@ -1,10 +1,13 @@
 import { useState } from 'react';
 
-import type { Task, CreateTaskInput } from '../../shared/types/tasks';
-import type { TaskFormState } from '../types/task';
-import CustomDropdown from './customDropdown';
-import { priorityList, taskStatusList } from '../data/tasks';
-import { getChangedFields } from '../utils';
+import { priorityList, taskStatusList } from '../../data/tasks';
+
+import { getChangedFields } from '../../utils';
+
+import type { Task, CreateTaskInput } from '../../../shared/types/tasks';
+import type { TaskFormState } from '../../types/task';
+
+import CustomDropdown from '../customComponents/customDropdown';
 
 type CreateTaskProps = {
   tasks: Task[];

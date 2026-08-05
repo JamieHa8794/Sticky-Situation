@@ -1,6 +1,6 @@
-import type { Task } from '../../shared/types/tasks';
+import type { Task } from '../../../shared/types/tasks';
 
-import '../styles/DeleteTaskModal.css';
+import '../../styles/tasks/DeleteTaskModal.css';
 import { TriangleAlert } from 'lucide-react';
 
 type DeleteModalProps = {

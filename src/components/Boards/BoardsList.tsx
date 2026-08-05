@@ -1,18 +1,18 @@
 import { useEffect, useReducer, useState } from 'react';
 
-import type { Board } from '../../shared/types/boards';
+import type { Board } from '../../../shared/types/boards';
 
-import type { BoardFormState, BoardsAction } from '../types/board';
+import type { BoardFormState, BoardsAction } from '../../types/board';
 import {
   createBoard,
   deleteBoard,
   getBoards,
   updateBoard,
-} from '../services/boardService';
+} from '../../services/boardService';
 import BoardFormModal from './BoardFormModal';
 import BoardCard from './BoardCard';
 
-import '../styles/BoardList.css';
+import '../../styles/boards/BoardList.css';
 import { FolderOpen, Plus } from 'lucide-react';
 
 function BoardsList() {

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { BOARD_ICON_OPTIONS } from '../data/icons';
+import { BOARD_ICON_OPTIONS } from '../../data/icons';
 
-import '../styles/IconModal.css';
-import type { BoardIconName } from '../types/icons';
+import '../../styles/boards/IconModal.css';
+import type { BoardIconName } from '../../types/icons';
 
 type IconModalProps = {
   setShowIconModal: (showModal: boolean) => void;
