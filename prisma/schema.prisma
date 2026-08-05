@@ -28,6 +28,7 @@ model Board {
   id          String   @id @default(uuid())
   title       String
   description String
+  icon        String   @default("rocket")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   tasks       Task[]

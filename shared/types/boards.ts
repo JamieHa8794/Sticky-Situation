@@ -1,7 +1,10 @@
+import type { BoardIconName } from '../../src/types/icons';
+
 type BoardBase = {
   id: string;
   title: string;
   description: string;
+  icon: BoardIconName;
   taskCount?: number;
 };
 
@@ -18,9 +21,12 @@ export type BoardRecord = BoardBase & {
 export type CreateBoardInput = {
   title: string;
   description: string;
+  icon: BoardIconName;
 };
 
-export type BoardUpdates = Partial<Pick<Board, 'title' | 'description'>>;
+export type BoardUpdates = Partial<
+  Pick<Board, 'title' | 'description' | 'icon'>
+>;
 
 export type BoardIdParams = {
   boardId: string;

@@ -40,6 +40,16 @@
   align-items: center;
 }
 
+.board-card .card-icon.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+}
+
 .board-card .header-end {
   display: flex;
   align-items: center;

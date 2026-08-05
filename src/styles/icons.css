@@ -53,6 +53,8 @@
 }
 
 .card-icon {
+  width: fit-content;
+  height: fit-content;
   padding: var(--space-3);
   border-radius: var(--radius-sm);
 }
@@ -68,4 +70,61 @@
 }
 .bg-danger {
   background-color: var(--error-200);
+}
+
+/* Accent Color Icons */
+.icon.accent-purple {
+  color: var(--accent-purple-foreground);
+}
+.icon.accent-blue {
+  color: var(--accent-blue-foreground);
+}
+.icon.accent-green {
+  color: var(--accent-green-foreground);
+}
+.icon.accent-amber {
+  color: var(--accent-amber-foreground);
+}
+.icon.accent-red {
+  color: var(--accent-red-foreground);
+}
+.icon.accent-teal {
+  color: var(--accent-teal-foreground);
+}
+.icon.accent-pink {
+  color: var(--accent-pink-foreground);
+}
+.icon.accent-slate {
+  color: var(--accent-slate-foreground);
+}
+
+/* Icon Container */
+.icon-container {
+  border-radius: var(--radius-full);
+  padding: var(--space-5);
+}
+
+.icon-container.accent-purple {
+  background-color: var(--accent-purple-background);
+}
+.icon-container.accent-blue {
+  background-color: var(--accent-blue-background);
+}
+.icon-container.accent-green {
+  background-color: var(--accent-green-background);
+}
+.icon-container.accent-amber {
+  background-color: var(--accent-amber-background);
+}
+.icon-container.accent-red {
+  background-color: var(--accent-red-background);
+}
+.icon-container.accent-teal {
+  background-color: var(--accent-teal-background);
+}
+.icon-container.accent-pink {
+  background-color: var(--accent-pink-background);
+}
+.icon-container.accent-slate {
+  background-color: var(--accent-slate-background);
 }

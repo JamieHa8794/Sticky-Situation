@@ -1,5 +1,6 @@
 import type { TaskStatus } from '../../shared/types/tasks';
 import type { Board } from '../../shared/types/boards';
+import type { BoardIconName } from './icons';
 
 export type Column = {
   id: string;
@@ -16,4 +17,5 @@ export type BoardsAction =
 export type BoardFormState = {
   title: string;
   description: string;
+  icon: BoardIconName;
 };

@@ -38,7 +38,10 @@
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
 }
-
+.modal-description {
+  font-size: var(--font-size-body-lg);
+  color: var(--text-secondary);
+}
 .modal-body {
   display: flex;
   flex-direction: column;
@@ -55,11 +58,14 @@
   gap: var(--space-6);
   width: 100%;
 }
-.form-container {
+.form-column {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-5);
   width: 100%;
+}
+.form-column.is-two-fifths {
+  width: 40%;
 }
 .form-row {
   display: flex;

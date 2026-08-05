@@ -38,12 +38,13 @@ ul.boards-list {
   justify-content: center;
   align-items: center;
 
+  padding: var(--space-8);
+  margin: var(--space-8) auto;
+  min-width: 850px;
+
   background: var(--background-surface-alt);
   border: 1px dashed var(--border-default);
   border-radius: var(--radius-lg);
-
-  padding: var(--space-8);
-  margin: var(--space-8) auto;
 }
 .empty-state-board .message {
   margin: 0 0 var(--space-2);

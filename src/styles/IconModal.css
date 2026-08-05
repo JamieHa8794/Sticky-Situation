@@ -1,0 +1,31 @@
+.modal-container.icon-modal {
+  max-width: fit-content;
+}
+.modal-title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--space-3);
+}
+.icon-modal .modal-body {
+  align-items: stretch;
+}
+
+.icon-list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-3);
+}
+.icon-list button.btn.secondary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 150px;
+  width: 125px;
+  padding: 10px;
+}
+.icon-list button.btn.secondary.selected {
+  border-color: var(--color-primary-600);
+}

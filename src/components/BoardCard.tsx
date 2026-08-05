@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import type { Board } from '../../shared/types/boards';
+import { BOARD_ICON_OPTIONS } from '../data/icons';
 
 import '../styles/BoardCard.css';
 import {
@@ -35,13 +36,19 @@ function BoardCard(props: BoardCardProps) {
 
   const daysAgo = board.updatedAt ? getDaysAgo(board.updatedAt) : 0;
 
+  const selectedIconOption = BOARD_ICON_OPTIONS.find(
+    (iconOption) => iconOption.id === board.icon,
+  );
+  const SelectedIcon = selectedIconOption?.Icon ?? Rocket;
+  const accentColor = selectedIconOption?.accent || 'green';
+
   return (
     <div className="board-card">
       <div className="card-main">
         <div className="card-header">
           <div className="header-start">
-            <div className="card-icon bg-success">
-              <Rocket className="icon lg green" />
+            <div className={`card-icon icon-container  accent-${accentColor}`}>
+              <SelectedIcon className={`icon lg  accent-${accentColor}`} />{' '}
             </div>
           </div>
           <div className="header-end">

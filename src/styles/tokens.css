@@ -20,6 +20,40 @@
   --gray-700: #334155;
   --gray-900: #0f172a;
 
+  /* Accent Colors */
+
+  /* Accent Purple */
+  --accent-purple-foreground: #6366f1;
+  --accent-purple-background: #eef2ff;
+
+  /* Accent Blue */
+  --accent-blue-foreground: #2563eb;
+  --accent-blue-background: #dbeafe;
+
+  /* Accent Green */
+  --accent-green-foreground: #10b981;
+  --accent-green-background: #d1fae5;
+
+  /* Accent Amber */
+  --accent-amber-foreground: #f59e0b;
+  --accent-amber-background: #fef3c7;
+
+  /* Accent Red */
+  --accent-red-foreground: #ef4444;
+  --accent-red-background: #fee2e2;
+
+  /* Accent Teal */
+  --accent-teal-foreground: #0d9488;
+  --accent-teal-background: #ccfbf1;
+
+  /* Accent Pink */
+  --accent-pink-foreground: #db2777;
+  --accent-pink-background: #fce7f3;
+
+  /* Accent Slate */
+  --accent-slate-foreground: #475569;
+  --accent-slate-background: #f1f5f9;
+
   /* Semantic Colors */
 
   /* Success */

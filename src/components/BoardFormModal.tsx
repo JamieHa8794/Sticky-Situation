@@ -1,7 +1,18 @@
 import { useState } from 'react';
 
-import type { BoardFormState } from '../types/board';
+import IconModal from './IconModal';
+
+import { getChangedFields } from '../utils';
+
+import { BOARD_ICON_OPTIONS } from '../data/icons';
+
 import type { Board } from '../../shared/types/boards';
+import type { BoardFormState } from '../types/board';
+import type { BoardIconName } from '../types/icons';
+
+import { Image, Rocket } from 'lucide-react';
+
+import '../styles/BoardFormModal.css';
 
 type BoardFormProps = {
   boards: Board[];
@@ -37,13 +48,17 @@ function BoardFormModal(props: BoardFormProps) {
     ? {
         title: editBoard.title,
         description: editBoard.description,
+        icon: editBoard.icon || 'rocket',
       }
     : {
         title: '',
         description: '',
+        icon: 'rocket',
       };
 
   const [formState, setFormState] = useState(initialFormState);
+  const [showIconModal, setShowIconModal] = useState(false);
+
   const formMode = currentlyEditing === null ? 'create' : 'edit';
   const boardId = editBoard?.id || '';
 
@@ -54,30 +69,46 @@ function BoardFormModal(props: BoardFormProps) {
       const boardDetails: BoardFormState = {
         title: formState.title,
         description: formState.description,
+        icon: formState.icon,
       };
       await handleSubmitCreateForm(boardDetails);
     }
 
     if (type === 'edit') {
-      const boardDetails: Partial<BoardFormState> = {};
-      if (initialFormState.title !== formState.title) {
-        boardDetails.title = formState.title;
-      }
+      const updatedTasks = getChangedFields(initialFormState, formState);
 
-      if (initialFormState.description !== formState.description) {
-        boardDetails.description = formState.description;
-      }
-
-      await handleSubmitEditForm(boardId, boardDetails);
+      await handleSubmitEditForm(boardId, updatedTasks);
     }
 
     setCurrentlyEditting(null);
     setShowForm(false);
   }
 
+  function setIcon(iconId: BoardIconName) {
+    setFormState((currentFormState) => {
+      return {
+        ...currentFormState,
+        icon: iconId,
+      };
+    });
+  }
+
+  const selectedIconOption = BOARD_ICON_OPTIONS.find(
+    (iconOption) => iconOption.id === formState.icon,
+  );
+
+  const SelectedIcon = selectedIconOption?.Icon ?? Rocket;
+  const accentColor = selectedIconOption?.accent || 'green';
+
   return (
     <div className="modal-overlay">
-      <div className="modal-container board-modal">
+      <div
+        className="modal-container board-modal"
+        style={{
+          width: '100%',
+          maxWidth: '650px',
+        }}
+      >
         <div className="modal-header">
           <div className="modal-title">
             {formMode === 'create'
@@ -88,40 +119,75 @@ function BoardFormModal(props: BoardFormProps) {
         <div className="modal-body">
           <div className="form-container">
             <div className="form-row">
-              <div className="form-item">
-                <div className="input-label">Title</div>
-                <input
-                  className="inpt"
-                  placeholder="Insert Board Title"
-                  value={formState.title}
-                  onChange={(e) => {
-                    setFormState((currentFormState) => {
-                      return { ...currentFormState, title: e.target.value };
-                    });
-                  }}
-                />
+              <div className="form-column is-two-fifths">
+                <div className="form-item">
+                  <div>Board Icon</div>
+                  <div className={`icon-container accent-${accentColor}`}>
+                    <SelectedIcon
+                      className={`icon xxl  accent-${accentColor}`}
+                    />
+                  </div>
+                  <div>
+                    <button
+                      className="btn outlined"
+                      onClick={() => {
+                        setShowIconModal(true);
+                      }}
+                    >
+                      <Image className="icon sm" />
+                      Change Icon
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="form-column">
+                <div className="form-row">
+                  <div className="form-item">
+                    <div className="input-label">Title</div>
+                    <div className="input-container">
+                      <input
+                        className="inpt"
+                        placeholder="Enter Board Title"
+                        value={formState.title}
+                        onChange={(e) => {
+                          setFormState((currentFormState) => {
+                            return {
+                              ...currentFormState,
+                              title: e.target.value,
+                            };
+                          });
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="form-row">
+                  <div className="form-item">
+                    <div className="input-label">Description</div>
+                    <textarea
+                      className="txt-area"
+                      style={{
+                        height: '100%',
+                        minHeight: '150px',
+                      }}
+                      placeholder="Insert Board Description"
+                      value={formState.description}
+                      onChange={(e) => {
+                        setFormState((currentFormState) => {
+                          return {
+                            ...currentFormState,
+                            description: e.target.value,
+                          };
+                        });
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="form-row">
-              <div className="form-item">
-                <div className="input-label">Description</div>
-                <input
-                  className="inpt"
-                  placeholder="Insert Board Description"
-                  value={formState.description}
-                  onChange={(e) => {
-                    setFormState((currentFormState) => {
-                      return {
-                        ...currentFormState,
-                        description: e.target.value,
-                      };
-                    });
-                  }}
-                />
-              </div>
-            </div>
-            <div>
+            <div className="modal-footer">
               <button
+                className="btn secondary"
                 onClick={() => {
                   setCurrentlyEditting(null);
                   setShowForm(false);
@@ -129,11 +195,22 @@ function BoardFormModal(props: BoardFormProps) {
               >
                 Cancel
               </button>
-              <button onClick={onSubmitBoard}>Submit</button>
+              <button className="btn primary" onClick={onSubmitBoard}>
+                {editBoard ? 'Save Changes' : 'Create Board'}
+              </button>
             </div>
           </div>
         </div>
       </div>
+      {showIconModal ? (
+        <IconModal
+          setShowIconModal={setShowIconModal}
+          selectedIcon={formState.icon}
+          setIcon={setIcon}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 }
