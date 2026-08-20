@@ -16,22 +16,20 @@ function DeleteModal(props: DeleteModalProps) {
 
   return (
     <div className="modal-overlay">
-      <div className="delete-modal modal-container">
+      <div className="delete-task-modal modal-container">
         <div className="modal-header">
-          <div className="modal-title">Confirm Delete?</div>
+          <div className="modal-title">Delete Task?</div>
         </div>
         <div className="modal-body">
           <div className="modal-body-icon">
-            <TriangleAlert className="warning-icon-svg" />
+            <TriangleAlert className="icon xl danger-600" />
           </div>
           <div className="modal-body-text-container">
             <div className="modal-body-text">
               Are you sure you want to delete:
             </div>
             <div className="modal-body-text bold">"{deleteTask?.title}"</div>
-            <div className="modal-body-sub-text">
-              This action cannot be undone.
-            </div>
+            <div className="modal-body-text">This action cannot be undone.</div>
           </div>
         </div>
 
@@ -46,7 +44,7 @@ function DeleteModal(props: DeleteModalProps) {
             className="btn primary destructive"
             onClick={() => handleConfirmDelete(deleteTaskId)}
           >
-            Delete
+            Delete Task
           </button>
         </div>
       </div>

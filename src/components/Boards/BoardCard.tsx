@@ -19,7 +19,7 @@ type BoardCardProps = {
   boardId: string;
   setCurrentlyEditing: (id: string) => void;
   setShowForm: (isShowing: boolean) => void;
-  handleConfirmDelete: (boardId: string) => void;
+  setDeleteBoardId: (boardId: string) => void;
 };
 
 function BoardCard(props: BoardCardProps) {
@@ -28,7 +28,7 @@ function BoardCard(props: BoardCardProps) {
     boardId,
     setCurrentlyEditing,
     setShowForm,
-    handleConfirmDelete,
+    setDeleteBoardId,
   } = props;
 
   const board = boards.find((b) => b.id === boardId);
@@ -65,7 +65,7 @@ function BoardCard(props: BoardCardProps) {
             <button
               className="btn icon destructive outlined"
               onClick={() => {
-                handleConfirmDelete(boardId);
+                setDeleteBoardId(boardId);
               }}
             >
               <Trash2 className="icon xs" />

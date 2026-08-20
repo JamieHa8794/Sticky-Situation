@@ -14,11 +14,13 @@ import BoardCard from './BoardCard';
 
 import '../../styles/boards/BoardList.css';
 import { FolderOpen, Plus } from 'lucide-react';
+import DeleteBoardModal from './DeleteBoardModal';
 
 function BoardsList() {
   const [boards, dispatch] = useReducer(boardsReducer, []);
   const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [deleteBoardId, setDeleteBoardId] = useState<string | null>(null);
 
   async function loadBoards() {
     const boards = await getBoards();
@@ -44,14 +46,18 @@ function BoardsList() {
     loadBoards();
   }
 
-  function handleConfirmDelete(boardId: string) {
-    const confirmed = window.confirm(
-      'Are you sure you want to delete this board? Doing so will delete all associated tickets',
-    );
-    if (confirmed) {
-      deleteBoard(boardId);
-      dispatch({ type: 'DELETE_BOARD', payload: boardId });
+  function handleConfirmDelete(boardId: string | null) {
+    if (boardId === null) {
+      setDeleteBoardId(null);
+      return;
     }
+    handleDeleteBoard(boardId);
+    setDeleteBoardId(null);
+  }
+
+  async function handleDeleteBoard(boardId: string) {
+    deleteBoard(boardId);
+    dispatch({ type: 'DELETE_BOARD', payload: boardId });
   }
 
   const showEmptyState = boards.length === 0;
@@ -110,7 +116,7 @@ function BoardsList() {
                       boardId={board.id}
                       setCurrentlyEditing={setCurrentlyEditing}
                       setShowForm={setShowForm}
-                      handleConfirmDelete={handleConfirmDelete}
+                      setDeleteBoardId={setDeleteBoardId}
                     />
                   </li>
                 );
@@ -128,6 +134,15 @@ function BoardsList() {
           handleSubmitCreateForm={handleSubmitCreateForm}
           handleSubmitEditForm={handleSubmitEditForm}
           setShowForm={setShowForm}
+        />
+      ) : (
+        ''
+      )}
+      {deleteBoardId ? (
+        <DeleteBoardModal
+          boards={boards}
+          deleteBoardId={deleteBoardId}
+          handleConfirmDelete={handleConfirmDelete}
         />
       ) : (
         ''

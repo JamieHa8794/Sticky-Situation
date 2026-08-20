@@ -1,4 +1,4 @@
-.modal-body-icon {
+.delete-task-modal .modal-body-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -7,33 +7,15 @@
   height: 70px;
 
   border-radius: 999px;
-  background-color: var(--error-200);
+  background-color: var(--error-50);
 }
-
-.warning-icon-svg {
-  width: 40px;
-  height: 40px;
-  color: var(--error-700);
-}
-.delete-modal .delete-modal-body-text-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-.delete-modal .modal-body-text {
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.4;
-  color: var(--text-primary);
-  text-align: center;
-}
-.delete-modal .modal-body-text.bold {
-  font-weight: var(--font-weight-bold);
-}
-.delete-modal .modal-body-sub-text {
-  font-size: var(--font-size-body);
+.delete-task-modal .modal-body-text {
+  font-size: var(--font-size-h3);
   font-weight: var(--font-weight-regular);
   line-height: 1.5;
-  color: var(--text-secondary);
-  text-align: center;
+  color: var(--gray-700);
+}
+.delete-task-modal .modal-body-text.bold {
+  font-weight: var(--font-weight-bold);
+  color: var(--error-500);
 }
