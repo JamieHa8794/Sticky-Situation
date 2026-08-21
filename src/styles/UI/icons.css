@@ -43,6 +43,10 @@
   color: var(--warning-500);
   opacity: 0.6;
 }
+.icon.danger {
+  color: var(--error-500);
+  opacity: 0.6;
+}
 .icon.danger-500 {
   color: var(--error-600);
 }
