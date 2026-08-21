@@ -1,12 +1,12 @@
 # Sticky Situation | Kanban Board
 
-A full-stack task management application built with React, TypeScript, Express, Prisma, and PostgreSQL.
+A full-stack project management application built with React, TypeScript, Express, Prisma, and PostgreSQL.
 
-Users can create, edit, organize, and manage tasks across workflow columns using a modern drag-and-drop interface.
+Sticky Situation supports multiple project boards, persistent task management, board customization, and drag-and-drop workflows through a full-stack REST API.
 
 <img
-  src="./screenshots/board-view.png"
-  alt="Kanban Board"
+  src="./screenshots/homepage.png"
+  alt="Sticky Situation Homepage"
   width="800"
 />
 
@@ -14,13 +14,13 @@ Users can create, edit, organize, and manage tasks across workflow columns using
 
 ## About This Project
 
-Kanban Board is a full-stack task management application built with React, TypeScript, Express, Prisma, and PostgreSQL.
+Sticky Situation is a full-stack Kanban project management application designed around multiple customizable project boards.
 
-The project demonstrates modern frontend and backend development practices, including a layered API architecture, service-based state management, database persistence, and a reusable design system.
+Users can create and manage boards, customize board details and icons, and organize tasks through workflow columns. Tasks support priorities, due dates, tags, search, filtering, sorting, and drag-and-drop status updates.
 
-The current release supports task management workflows, drag-and-drop interactions, filtering, sorting, and full CRUD operations.
+The application uses a React and TypeScript frontend backed by an Express REST API, with Prisma and PostgreSQL providing relational data modeling and persistence.
 
-Future enhancements include multiple boards, authentication, board ownership, task assignment, and user management.
+The project emphasizes maintainable application architecture, separation of concerns, reusable UI patterns, and a consistent design system across the application.
 
 ---
 
@@ -31,7 +31,9 @@ Future enhancements include multiple boards, authentication, board ownership, ta
 - React
 - TypeScript
 - Vite
+- React Router
 - CSS
+- Lucide Icons
 
 ### Backend
 
@@ -48,7 +50,7 @@ Future enhancements include multiple boards, authentication, board ownership, ta
 
 ## Architecture
 
-The application follows a layered architecture that separates UI concerns, business logic, API concerns, and persistence.
+The application follows a layered architecture that separates UI concerns, data access, HTTP handling, business logic, and persistence.
 
 ```text
 [ Frontend ]
@@ -78,88 +80,143 @@ PostgreSQL
 
 ### Frontend Service Layer
 
-Task persistence is abstracted behind a frontend service layer.
+Frontend data access is abstracted behind dedicated service functions rather than coupling API requests directly to React components.
 
-This allowed the application to begin with local persistence and later migrate to a REST API without significant changes to the React components.
+The application originally used local persistence during early development. Abstracting persistence behind a service layer allowed the application to later migrate to a REST API without requiring significant changes throughout the component layer.
 
 ### Layered Backend Architecture
 
-The backend separates routes, controllers, and services.
+The Express backend separates routes, controllers, and services.
 
-This keeps HTTP concerns isolated from business logic and persistence concerns while making the codebase easier to maintain and extend.
+Routes define API endpoints, controllers handle HTTP-specific request and response concerns, and services contain application and persistence logic. This separation keeps responsibilities clear and makes the backend easier to maintain and extend as additional resources are introduced.
+
+### Relational Board and Task Modeling
+
+Boards and tasks are modeled as related resources in PostgreSQL rather than treating tasks as a single global collection.
+
+Each task belongs to a board, allowing task operations to be scoped to the appropriate project while providing a foundation for additional relationships such as users, ownership, and task assignments.
+
+### URL-Driven Board Navigation
+
+React Router is used to represent application navigation and board selection through URLs.
+
+Individual boards are identified through route parameters, allowing board pages and editing flows to derive the active board from the URL rather than maintaining duplicate navigation state inside the application.
 
 ### PostgreSQL + Prisma
 
-Prisma was selected to provide type-safe database access and schema management while PostgreSQL serves as the application's primary data store.
+PostgreSQL serves as the application's primary data store, with Prisma providing schema management, migrations, relational modeling, and type-safe database access.
 
-### Design Token System
+### Reusable Design System
 
-Colors, spacing, typography, shadows, and component styling are centralized through reusable design tokens to maintain visual consistency across the application.
+The application's visual language is built around centralized design tokens for colors, typography, spacing, borders, shadows, and interactive states.
+
+Reusable styling patterns are applied across buttons, inputs, icons, cards, modals, navigation, and other interface elements to maintain consistency as the application grows.
 
 ---
 
 ## Current Features
 
+### Board Management
+
+- Create multiple project boards
+- Edit board titles and descriptions
+- Delete boards
+- Select and persist board icons
+- Display task counts for each board
+- Navigate between individual project boards
+
 ### Task Management
 
 - Create, edit, and delete tasks
-- Drag and drop workflow management
-- Priority and due date tracking
-- Task tagging
+- Drag and drop tasks between workflow columns
+- Track task priority and due dates
+- Organize tasks with tags
+- Persist task changes to PostgreSQL
+- Scope tasks to their associated board
 
 ### Task Discovery
 
 - Search tasks
-- Filter by status
-- Filter by priority
+- Filter tasks by status
+- Filter tasks by priority
 - Sort tasks
+
+### Navigation
+
+- Application homepage
+- Boards overview page
+- Individual board pages
+- URL-driven board navigation with React Router
+- Global application navigation
 
 ### Full-Stack Functionality
 
-- REST API backend
+- REST API for board and task operations
+- Layered Express backend architecture
 - PostgreSQL persistence
 - Prisma ORM integration
-- Seeded development database
+- Relational board and task data
+- Database migrations
+- Seeded development data
 
 ### User Experience
 
-- Reusable design token system
-- Consistent modal workflows
-- Modern Kanban board interface
+- Custom design system with reusable CSS tokens
+- Consistent button, input, card, and modal patterns
+- Board icon customization
+- Drag-and-drop visual feedback
+- Confirmation workflows for destructive actions
+- Cohesive navigation, homepage, boards, and Kanban interfaces
 
 ---
 
-## Additional Screenshots
+## Screenshots
 
-### Create Task
+### Homepage
 
 <img
-  src="./screenshots/create-task.png"
-  alt="Create Task Modal"
+  src="./screenshots/homepage.png"
+  alt="Sticky Situation Homepage"
   width="800"
 />
 
-### Edit Task
+### Boards
 
 <img
-  src="./screenshots/edit-task.png"
-  alt="Edit Task Modal"
+  src="./screenshots/boards.png"
+  alt="Sticky Situation Boards Page"
   width="800"
 />
 
-### Delete Confirmation
+### Kanban Board
 
 <img
-  src="./screenshots/delete-confirmation.png"
-  alt="Delete Confirmation Modal"
+  src="./screenshots/board-view.png"
+  alt="Sticky Situation Kanban Board"
   width="800"
 />
 
-### Drag and Drop Workflow
+### Drag and Drop
 
 <img
   src="./screenshots/drag-and-drop.png"
-  alt="Drag and Drop Workflow"
+  alt="Dragging a task between Kanban workflow columns"
+  width="800"
+/>
+
+### Create / Edit Board
+
+<img
+  src="./screenshots/board-form.png"
+  alt="Create or Edit Board"
+  width="800"
+/>
+
+### Task Management
+
+<img
+  src="./screenshots/task-form.png"
+  alt="Task Management"
   width="800"
 />
 
@@ -176,7 +233,7 @@ git clone <repository-url>
 ### Install Dependencies
 
 ```bash
-cd kanban-board
+cd sticky-situation
 npm install
 ```
 
@@ -208,6 +265,8 @@ npm run dev
 
 ### Start the Backend
 
+In a separate terminal:
+
 ```bash
 npm run dev:server
 ```
@@ -216,49 +275,39 @@ npm run dev:server
 
 ## Planned Enhancements
 
-### Boards
-
-- Multiple boards
-- Board creation
-- Board editing
-- Board deletion
-- Board descriptions
-- Board switching
-
-### Navigation
-
-- React Router integration
-- Boards listing page
-- Individual board pages
-
-### Authentication
+### Authentication & Users
 
 - User registration
-- User login
-- User logout
-- Protected routes
+- User login and logout
+- Protected application routes
+- User profiles and account settings
 
-### Ownership
+### Ownership & Collaboration
 
-- Board ownership
-- User-owned boards
-- User-owned data
-
-### Task Assignment
-
+- Associate boards with their owners
+- Restrict board access based on authenticated users
 - Assign tasks to users
-- Display assignee information
+- Display task assignees
 - Filter tasks by assignee
 
-### User Management
+### Reliability & User Experience
 
-- User profile page
-- Update username
-- User settings page
+- Application-wide loading states
+- API error handling and recovery states
+- Form validation
+- Accessibility improvements
+- Responsive layouts
 
-### Additional Improvements
+### Testing
 
-- Loading states
-- Error states
-- Automated testing
-- Deployment
+- Frontend component and integration tests
+- Backend service tests
+- REST API integration tests
+- Authorization and ownership tests
+
+### Deployment
+
+- Deploy the frontend and backend
+- Host the PostgreSQL database
+- Configure production environment variables
+- Prepare the application for public portfolio demonstrations
