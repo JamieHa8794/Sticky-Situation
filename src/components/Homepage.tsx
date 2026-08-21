@@ -72,17 +72,16 @@ function Homepage() {
           >
             <path
               d="M250 0
-      C185 45 124 44 62 102
-      C4 156 -15 248 40 312
-      C91 369 176 360 272 407
-      C393 468 470 477 610 467
-      C759 456 853 505 1000 560
-      L1000 0
-      Z"
+              C185 45 124 44 62 102
+              C4 156 -15 248 40 312
+              C91 369 176 360 272 407
+              C393 468 470 477 610 467
+              C759 456 853 505 1000 560
+              L1000 0
+              Z"
               fill="#c7d2fe"
             />
           </svg>
-          {/* <div className="plant-ground-blob" aria-hidden="true" /> */}
 
           <div className="hero-content">
             <div className="left-hero">
