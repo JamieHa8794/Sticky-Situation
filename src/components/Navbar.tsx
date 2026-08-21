@@ -11,10 +11,12 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar-start">
-        <div className="navbar-logo">
-          <img src={Logo} className="icon xl" />
-          <div className="app-name">Sticky Sittuation</div>
-        </div>
+        <Link to="/" className="home-logo-link">
+          <div className="navbar-logo">
+            <img src={Logo} className="icon xl" />
+            <div className="app-name">Sticky Situation</div>
+          </div>
+        </Link>
         <div className="navbar-link-container">
           <Link to="/" className={`navbar-link ${isHome ? 'active' : ''}`}>
             <Home className="icon lg" />

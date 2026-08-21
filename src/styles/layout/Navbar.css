@@ -8,6 +8,10 @@
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 2px 8px rgba(67, 56, 202, 0.08);
 }
+.home-logo-link {
+  all: unset;
+  cursor: pointer;
+}
 .navbar-logo {
   display: flex;
   align-items: center;
