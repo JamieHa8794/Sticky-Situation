@@ -13,29 +13,27 @@ import type { BoardIconName } from '../../types/icons';
 import { Image, Rocket } from 'lucide-react';
 
 import '../../styles/boards/BoardFormModal.css';
+import { useNavigate } from 'react-router';
 
 type BoardFormProps = {
   boards: Board[];
   currentlyEditing: string | null;
-  setCurrentlyEditting: (boardId: string | null) => void;
   handleSubmitCreateForm: (board: BoardFormState) => void;
   handleSubmitEditForm: (
     boardId: string,
     boardDetails: Partial<BoardFormState>,
   ) => void;
-  setShowForm: (isOpen: boolean) => void;
 };
 
 function BoardFormModal(props: BoardFormProps) {
   const {
     boards,
     currentlyEditing,
-    setCurrentlyEditting,
     handleSubmitCreateForm,
     handleSubmitEditForm,
-    setShowForm,
   } = props;
 
+  const navigate = useNavigate();
   const editBoard = getEditBoard();
   function getEditBoard() {
     if (currentlyEditing === null) return null;
@@ -80,8 +78,7 @@ function BoardFormModal(props: BoardFormProps) {
       await handleSubmitEditForm(boardId, updatedTasks);
     }
 
-    setCurrentlyEditting(null);
-    setShowForm(false);
+    navigate('/boards');
   }
 
   function setIcon(iconId: BoardIconName) {
@@ -189,8 +186,7 @@ function BoardFormModal(props: BoardFormProps) {
               <button
                 className="btn secondary"
                 onClick={() => {
-                  setCurrentlyEditting(null);
-                  setShowForm(false);
+                  navigate('/boards');
                 }}
               >
                 Cancel

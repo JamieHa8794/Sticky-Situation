@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import type { Board } from '../../../shared/types/boards';
 import { BOARD_ICON_OPTIONS } from '../../data/icons';
 
@@ -17,20 +17,13 @@ import { getDaysAgo } from '../../utils';
 type BoardCardProps = {
   boards: Board[];
   boardId: string;
-  setCurrentlyEditing: (id: string) => void;
-  setShowForm: (isShowing: boolean) => void;
   setDeleteBoardId: (boardId: string) => void;
 };
 
 function BoardCard(props: BoardCardProps) {
-  const {
-    boards,
-    boardId,
-    setCurrentlyEditing,
-    setShowForm,
-    setDeleteBoardId,
-  } = props;
+  const { boards, boardId, setDeleteBoardId } = props;
 
+  const navigate = useNavigate();
   const board = boards.find((b) => b.id === boardId);
   if (!board) return;
   const boardTaskCount = board.taskCount || 0;
@@ -56,8 +49,7 @@ function BoardCard(props: BoardCardProps) {
             <button
               className="btn icon outlined"
               onClick={() => {
-                setCurrentlyEditing(boardId);
-                setShowForm(true);
+                navigate(`/boards/${boardId}/edit`);
               }}
             >
               <Pencil className="icon xs " />

@@ -17,7 +17,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/boards" element={<BoardsList />} />
+          <Route path="/boards/new" element={<BoardsList />} />
+
           <Route path="/boards/:boardId" element={<BoardPage />} />
+          <Route path="/boards/:boardId/edit" element={<BoardsList />} />
         </Routes>
       </div>
     </div>

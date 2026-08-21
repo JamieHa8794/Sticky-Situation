@@ -99,6 +99,9 @@
 .icon.accent-slate {
   color: var(--accent-slate-foreground);
 }
+.icon.accent-yellow {
+  color: var(--accent-yellow-foreground);
+}
 
 /* Icon Container */
 .icon-container {
@@ -129,4 +132,7 @@
 }
 .icon-container.accent-slate {
   background-color: var(--accent-slate-background);
+}
+.icon-container.accent-yellow {
+  background-color: var(--accent-yellow-background);
 }

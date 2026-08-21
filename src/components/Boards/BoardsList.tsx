@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useState } from 'react';
+import { useMatch, useNavigate, useParams } from 'react-router';
 
 import type { Board } from '../../../shared/types/boards';
 
@@ -17,9 +18,15 @@ import { FolderOpen, Plus } from 'lucide-react';
 import DeleteBoardModal from './DeleteBoardModal';
 
 function BoardsList() {
+  const navigate = useNavigate();
+  const isCreateBoardRoute = Boolean(useMatch('/boards/new'));
+  const { boardId } = useParams();
+  const currentlyEditing = boardId || null;
+  const isEditBoardRoute = Boolean(useMatch(`/boards/${boardId}/edit`));
+
+  const showForm = isCreateBoardRoute || isEditBoardRoute;
+
   const [boards, dispatch] = useReducer(boardsReducer, []);
-  const [currentlyEditing, setCurrentlyEditing] = useState<string | null>(null);
-  const [showForm, setShowForm] = useState(false);
   const [deleteBoardId, setDeleteBoardId] = useState<string | null>(null);
 
   async function loadBoards() {
@@ -73,7 +80,7 @@ function BoardsList() {
           </div>
           <button
             className="btn primary"
-            onClick={() => setShowForm(!showForm)}
+            onClick={() => navigate('/boards/new')}
           >
             <Plus className="icon md" />
             Create Board
@@ -99,7 +106,7 @@ function BoardsList() {
             <div className="page-header-end">
               <button
                 className="btn primary"
-                onClick={() => setShowForm(!showForm)}
+                onClick={() => navigate('/boards/new')}
               >
                 <Plus className="icon md" />
                 Create Board
@@ -114,8 +121,6 @@ function BoardsList() {
                     <BoardCard
                       boards={boards}
                       boardId={board.id}
-                      setCurrentlyEditing={setCurrentlyEditing}
-                      setShowForm={setShowForm}
                       setDeleteBoardId={setDeleteBoardId}
                     />
                   </li>
@@ -130,10 +135,8 @@ function BoardsList() {
         <BoardFormModal
           boards={boards}
           currentlyEditing={currentlyEditing}
-          setCurrentlyEditting={setCurrentlyEditing}
           handleSubmitCreateForm={handleSubmitCreateForm}
           handleSubmitEditForm={handleSubmitEditForm}
-          setShowForm={setShowForm}
         />
       ) : (
         ''

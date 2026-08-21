@@ -1,4 +1,8 @@
 .badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   background: var(--color-primary-50);
   color: var(--color-primary-700);
 
@@ -26,7 +30,10 @@
   background-color: var(--success-50);
   color: var(--success-700);
 }
-
+.badge.primary {
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-700);
+}
 .badge.tag {
   border-radius: var(--radius-md);
   padding: 4px var(--space-3);
