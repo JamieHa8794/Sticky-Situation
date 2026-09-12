@@ -1,18 +1,22 @@
 from datetime import datetime
 from uuid import uuid4
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Text, func
 from sqlalchemy.dialects.postgresql import TIMESTAMP
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
+
+if TYPE_CHECKING:
+    from app.models.task import Task
 
 
 class Board(Base):
     __tablename__ = "Board"
 
     id: Mapped[str] = mapped_column(
-        Text, 
+        Text,
         primary_key=True,
         default=lambda: str(uuid4()),
     )
@@ -34,5 +38,11 @@ class Board(Base):
         TIMESTAMP(precision=3),
         nullable=False,
         default=func.now(),
-        onupdate=func.now(),   
+        onupdate=func.now(),
+    )
+
+    tasks: Mapped[list["Task"]] = relationship(
+        back_populates="board",
+        cascade="all, delete",
+        passive_deletes=True,
     )
