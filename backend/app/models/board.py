@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 
 class Board(Base):
-    __tablename__ = "Board"
+    __tablename__ = "boards"
 
     id: Mapped[str] = mapped_column(
         Text,
@@ -28,13 +28,11 @@ class Board(Base):
         server_default="rocket",
     )
     created_at: Mapped[datetime] = mapped_column(
-        "createdAt",
         TIMESTAMP(precision=3),
         nullable=False,
         server_default=func.now(),
     )
     updated_at: Mapped[datetime] = mapped_column(
-        "updatedAt",
         TIMESTAMP(precision=3),
         nullable=False,
         default=func.now(),

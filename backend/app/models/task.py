@@ -26,7 +26,7 @@ class TaskPriority(str, Enum):
 
 
 class Task(Base):
-    __tablename__ = "Task"
+    __tablename__ = "tasks"
 
     id: Mapped[str] = mapped_column(
         Text,
@@ -38,7 +38,7 @@ class Task(Base):
     status: Mapped[TaskStatus] = mapped_column(
         SqlEnum(
             TaskStatus,
-            name="TaskStatus",
+            name="task_status",
             values_callable=lambda enum_class: [member.value for member in enum_class],
         ),
         nullable=False,
@@ -46,13 +46,12 @@ class Task(Base):
     priority: Mapped[TaskPriority] = mapped_column(
         SqlEnum(
             TaskPriority,
-            name="TaskPriority",
+            name="task_priority",
             values_callable=lambda enum_class: [member.value for member in enum_class],
         ),
         nullable=False,
     )
     due_date: Mapped[str] = mapped_column(
-        "dueDate",
         Text,
         nullable=False,
     )
@@ -61,9 +60,8 @@ class Task(Base):
         nullable=False,
     )
     board_id: Mapped[str] = mapped_column(
-        "boardId",
         Text,
-        ForeignKey("Board.id", ondelete="CASCADE"),
+        ForeignKey("boards.id", ondelete="CASCADE"),
         nullable=False,
     )
 
