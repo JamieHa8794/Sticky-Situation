@@ -15,7 +15,10 @@ export type Task = {
 export type CreateTaskInput = Omit<Task, 'id'>;
 
 export type TaskUpdates = Partial<
-  Pick<Task, 'title' | 'description' | 'status' | 'priority' | 'dueDate'>
+  Pick<
+    Task,
+    'title' | 'description' | 'status' | 'priority' | 'dueDate' | 'tags'
+  >
 >;
 
 export type TaskIdParams = {

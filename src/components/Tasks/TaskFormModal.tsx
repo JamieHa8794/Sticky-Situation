@@ -4,7 +4,11 @@ import { priorityList, taskStatusList } from '../../data/tasks';
 
 import { getChangedFields } from '../../utils';
 
-import type { Task, CreateTaskInput } from '../../../shared/types/tasks';
+import type {
+  Task,
+  CreateTaskInput,
+  TaskUpdates,
+} from '../../../shared/types/tasks';
 import type { TaskFormState } from '../../types/task';
 
 import CustomDropdown from '../customComponents/customDropdown';
@@ -13,7 +17,7 @@ type CreateTaskProps = {
   tasks: Task[];
   currentlyEditing: string | null;
   handleSubmitCreateTask: (task: CreateTaskInput) => void;
-  handleSubmitEditTask: (taskId: string, task: Partial<Task>) => void;
+  handleSubmitEditTask: (taskId: string, task: TaskUpdates) => void;
   handleSetEditTask: (id: string | null) => void;
   handleToggleTaskFormModal: () => void;
 };

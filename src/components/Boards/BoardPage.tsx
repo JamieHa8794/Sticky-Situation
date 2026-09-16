@@ -9,6 +9,7 @@ import type {
   Task,
   TaskStatus,
   CreateTaskInput,
+  TaskUpdates,
 } from '../../../shared/types/tasks';
 import type { TaskAction, sortOptions } from '../../types/task';
 import { PRIORITY_ORDER } from '../../types/task';
@@ -77,7 +78,7 @@ function BoardPage() {
     dispatch({ type: 'ADD_TASK', payload: createdTask });
   }
 
-  async function handleSubmitEditTask(taskId: string, task: Partial<Task>) {
+  async function handleSubmitEditTask(taskId: string, task: TaskUpdates) {
     if (!boardId) {
       throw new Error('Board ID is missing.');
     }
