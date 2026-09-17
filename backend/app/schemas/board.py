@@ -24,3 +24,7 @@ class BoardResponse(BaseModel):
     icon: str
     created_at: datetime = Field(serialization_alias="createdAt")
     updated_at: datetime = Field(serialization_alias="updatedAt")
+
+
+class BoardSummaryResponse(BoardResponse):
+    task_count: int = Field(serialization_alias="taskCount")

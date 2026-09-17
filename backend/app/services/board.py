@@ -7,8 +7,21 @@ from app.schemas.board import BoardCreate, BoardUpdate
 from app.models.task import Task
 
 
-def get_board(session: Session, board_id: str) -> Board | None:
-    return session.get(Board, board_id)
+def get_board(session: Session, board_id: str) -> tuple[Board, int] | None:
+    statement = (
+        select(Board, func.count(Task.id))
+        .where(Board.id == board_id)
+        .outerjoin(Board.tasks)
+        .group_by(Board.id)
+    )
+    row = session.execute(statement).one_or_none()
+
+    if row is None:
+        return None
+
+    board, task_count = row
+
+    return (board, task_count)
 
 
 def get_boards(session: Session) -> list[tuple[Board, int]]:
