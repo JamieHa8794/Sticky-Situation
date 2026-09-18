@@ -164,7 +164,7 @@ PostgreSQL
 
 ### Frontend Service Layer
 
-Persistence is abstracted behind frontend services, allowing the application to move from local persistence to REST APIs without coupling data access directly to React components.
+React components use dedicated service functions to interact with application data rather than handling persistence or API requests directly. This separation also allowed the project to move from localStorage-based persistence to a REST API with minimal changes to the component layer.
 
 ### Backend Migration
 
