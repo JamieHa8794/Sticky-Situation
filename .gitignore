@@ -23,9 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Generated Prisma Client
-/server/generated/prisma
-
 # Environment variables
 .env
 

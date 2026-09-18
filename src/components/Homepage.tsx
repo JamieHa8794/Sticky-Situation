@@ -2,12 +2,8 @@ import {
   ArrowRight,
   CircleCheck,
   CheckSquare,
-  ChevronDown,
-  CircleUserRound,
   Flag,
   Grid2X2,
-  Home,
-  LayoutDashboard,
   Plus,
   Sparkles,
 } from 'lucide-react';
