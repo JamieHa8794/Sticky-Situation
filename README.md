@@ -165,7 +165,6 @@ Reusable styling patterns are applied across buttons, inputs, icons, cards, moda
 
 ### Full-Stack Functionality
 
-- REST API for board and task operations
 - FastAPI REST API with layered routers, schemas, and services
 - PostgreSQL persistence
 - SQLAlchemy database access
@@ -238,16 +237,23 @@ Reusable styling patterns are applied across buttons, inputs, icons, cards, moda
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js and npm
+- Python 3.13
+- uv
+- PostgreSQL
+
 ### Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/JamieHa8794/Sticky-Situation.git
+cd Sticky-Situation
 ```
 
 ### Install Frontend Dependencies
 
 ```bash
-cd sticky-situation
 npm install
 ```
 
@@ -277,7 +283,6 @@ Create the PostgreSQL database first if it does not already exist.
 ### Run Database Migrations
 
 ```bash
-cd backend
 uv run alembic upgrade head
 ```
 
