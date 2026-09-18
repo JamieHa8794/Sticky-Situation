@@ -1,6 +1,6 @@
 # Sticky Situation | Kanban Board
 
-A full-stack project management application built with React, TypeScript, Express, Prisma, and PostgreSQL.
+A full-stack project management application built with React, TypeScript, FastAPI, SQLAlchemy, and PostgreSQL.
 
 Sticky Situation supports multiple project boards, persistent task management, board customization, and drag-and-drop workflows through a full-stack REST API.
 
@@ -18,7 +18,9 @@ Sticky Situation is a full-stack Kanban project management application designed 
 
 Users can create and manage boards, customize board details and icons, and organize tasks through workflow columns. Tasks support priorities, due dates, tags, search, filtering, sorting, and drag-and-drop status updates.
 
-The application uses a React and TypeScript frontend backed by an Express REST API, with Prisma and PostgreSQL providing relational data modeling and persistence.
+The application uses a React and TypeScript frontend backed by a FastAPI REST API. Pydantic defines API schemas, while SQLAlchemy and PostgreSQL provide relational data modeling and persistence.
+
+The project originally used an Express and TypeScript backend with Prisma. It was migrated to FastAPI, Pydantic, SQLAlchemy, and Alembic as the active backend and database tooling. The `v2.0.0` Git tag preserves the earlier Express/Prisma implementation.
 
 The project emphasizes maintainable application architecture, separation of concerns, reusable UI patterns, and a consistent design system across the application.
 
@@ -37,14 +39,26 @@ The project emphasizes maintainable application architecture, separation of conc
 
 ### Backend
 
-- Node.js
-- Express
-- TypeScript
+- Python
+- FastAPI
+- Uvicorn
+
+### API Schemas and Validation
+
+- Pydantic
 
 ### Database
 
 - PostgreSQL
-- Prisma ORM
+- SQLAlchemy
+
+### Migrations
+
+- Alembic
+
+### Development Data
+
+- Python/SQLAlchemy seed script
 
 ---
 
@@ -63,13 +77,13 @@ Frontend Service Layer
 
 [ Backend ]
 
-Express Routes
+FastAPI Routers
         ↓
-Controllers
+Pydantic Request/Response Schemas
         ↓
-Services
+Python Service Layer
         ↓
-Prisma
+SQLAlchemy
         ↓
 PostgreSQL
 ```
@@ -86,9 +100,9 @@ The application originally used local persistence during early development. Abst
 
 ### Layered Backend Architecture
 
-The Express backend separates routes, controllers, and services.
+The FastAPI backend separates routers, Pydantic schemas, and Python service functions.
 
-Routes define API endpoints, controllers handle HTTP-specific request and response concerns, and services contain application and persistence logic. This separation keeps responsibilities clear and makes the backend easier to maintain and extend as additional resources are introduced.
+FastAPI routers define API endpoints, Pydantic schemas validate request and response data, and services contain application and persistence logic through SQLAlchemy. This separation keeps responsibilities clear while preserving the project’s layered architecture.
 
 ### Relational Board and Task Modeling
 
@@ -102,9 +116,9 @@ React Router is used to represent application navigation and board selection thr
 
 Individual boards are identified through route parameters, allowing board pages and editing flows to derive the active board from the URL rather than maintaining duplicate navigation state inside the application.
 
-### PostgreSQL + Prisma
+### PostgreSQL + SQLAlchemy
 
-PostgreSQL serves as the application's primary data store, with Prisma providing schema management, migrations, relational modeling, and type-safe database access.
+PostgreSQL serves as the application's primary data store, with SQLAlchemy providing relational modeling and database access. Alembic manages schema migrations.
 
 ### Reusable Design System
 
@@ -152,11 +166,11 @@ Reusable styling patterns are applied across buttons, inputs, icons, cards, moda
 ### Full-Stack Functionality
 
 - REST API for board and task operations
-- Layered Express backend architecture
+- FastAPI REST API with layered routers, schemas, and services
 - PostgreSQL persistence
-- Prisma ORM integration
+- SQLAlchemy database access
 - Relational board and task data
-- Database migrations
+- Alembic database migrations
 - Seeded development data
 
 ### User Experience
@@ -230,46 +244,67 @@ Reusable styling patterns are applied across buttons, inputs, icons, cards, moda
 git clone <repository-url>
 ```
 
-### Install Dependencies
+### Install Frontend Dependencies
 
 ```bash
 cd sticky-situation
 npm install
 ```
 
+### Install Backend Dependencies
+
+```bash
+cd backend
+uv sync
+```
+
 ### Configure Environment Variables
 
-Create a `.env` file in the project root.
+From `backend/`, create `.env` from the example file and configure the PostgreSQL connection.
+
+```bash
+cp .env.example .env
+```
+
+Set `DATABASE_URL` in `backend/.env` to a running PostgreSQL database, for example:
 
 ```env
-DATABASE_URL=your_database_url
+DATABASE_URL=postgresql+psycopg://USERNAME:PASSWORD@localhost:5432/DATABASE_NAME
 ```
+
+Create the PostgreSQL database first if it does not already exist.
 
 ### Run Database Migrations
 
 ```bash
-npx prisma migrate dev
+cd backend
+uv run alembic upgrade head
 ```
 
 ### Seed the Database
 
 ```bash
-npx prisma db seed
+cd ..
+npm run seed
 ```
 
-### Start the Frontend
+### Start FastAPI
+
+In a separate terminal, from the repository root:
+
+```bash
+npm run dev:server
+```
+
+FastAPI normally runs at `http://localhost:8000`. Interactive API documentation is available at `http://localhost:8000/docs`.
+
+### Start React/Vite
 
 ```bash
 npm run dev
 ```
 
-### Start the Backend
-
-In a separate terminal:
-
-```bash
-npm run dev:server
-```
+React/Vite normally runs at `http://localhost:5173`. PostgreSQL must remain running while the application is in use.
 
 ---
 
