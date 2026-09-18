@@ -2,7 +2,7 @@
 
 A full-stack project management application built with React, TypeScript, FastAPI, SQLAlchemy, and PostgreSQL.
 
-Sticky Situation supports multiple project boards, persistent task management, board customization, and drag-and-drop workflows through a full-stack REST API.
+Sticky Situation supports multiple project boards, persistent task management, board customization, and drag-and-drop workflows through a REST API.
 
 <img
   src="./screenshots/homepage.png"
@@ -14,15 +14,11 @@ Sticky Situation supports multiple project boards, persistent task management, b
 
 ## About This Project
 
-Sticky Situation is a full-stack Kanban project management application designed around multiple customizable project boards.
-
-Users can create and manage boards, customize board details and icons, and organize tasks through workflow columns. Tasks support priorities, due dates, tags, search, filtering, sorting, and drag-and-drop status updates.
+Sticky Situation is organized around multiple customizable project boards, each with its own persistent set of tasks. Users can create and manage boards, customize board details and icons, and organize tasks across workflow columns with priorities, due dates, tags, search, filtering, sorting, and drag-and-drop status updates.
 
 The application uses a React and TypeScript frontend backed by a FastAPI REST API. Pydantic defines API schemas, while SQLAlchemy and PostgreSQL provide relational data modeling and persistence.
 
-The project originally used an Express and TypeScript backend with Prisma. It was migrated to FastAPI, Pydantic, SQLAlchemy, and Alembic as the active backend and database tooling. The `v2.0.0` Git tag preserves the earlier Express/Prisma implementation.
-
-The project emphasizes maintainable application architecture, separation of concerns, reusable UI patterns, and a consistent design system across the application.
+The project originally used an Express and TypeScript backend with Prisma. It was later migrated to FastAPI, Pydantic, SQLAlchemy, and Alembic, while the `v2.0.0` Git tag preserves the earlier implementation.
 
 ---
 
@@ -41,90 +37,14 @@ The project emphasizes maintainable application architecture, separation of conc
 
 - Python
 - FastAPI
-- Uvicorn
-
-### API Schemas and Validation
-
 - Pydantic
+- Uvicorn
 
 ### Database
 
 - PostgreSQL
 - SQLAlchemy
-
-### Migrations
-
 - Alembic
-
-### Development Data
-
-- Python/SQLAlchemy seed script
-
----
-
-## Architecture
-
-The application follows a layered architecture that separates UI concerns, data access, HTTP handling, business logic, and persistence.
-
-```text
-[ Frontend ]
-
-React Components
-        ↓
-Frontend Service Layer
-
-──────── HTTP / REST API ────────
-
-[ Backend ]
-
-FastAPI Routers
-        ↓
-Pydantic Request/Response Schemas
-        ↓
-Python Service Layer
-        ↓
-SQLAlchemy
-        ↓
-PostgreSQL
-```
-
----
-
-## Key Technical Decisions
-
-### Frontend Service Layer
-
-Frontend data access is abstracted behind dedicated service functions rather than coupling API requests directly to React components.
-
-The application originally used local persistence during early development. Abstracting persistence behind a service layer allowed the application to later migrate to a REST API without requiring significant changes throughout the component layer.
-
-### Layered Backend Architecture
-
-The FastAPI backend separates routers, Pydantic schemas, and Python service functions.
-
-FastAPI routers define API endpoints, Pydantic schemas validate request and response data, and services contain application and persistence logic through SQLAlchemy. This separation keeps responsibilities clear while preserving the project’s layered architecture.
-
-### Relational Board and Task Modeling
-
-Boards and tasks are modeled as related resources in PostgreSQL rather than treating tasks as a single global collection.
-
-Each task belongs to a board, allowing task operations to be scoped to the appropriate project while providing a foundation for additional relationships such as users, ownership, and task assignments.
-
-### URL-Driven Board Navigation
-
-React Router is used to represent application navigation and board selection through URLs.
-
-Individual boards are identified through route parameters, allowing board pages and editing flows to derive the active board from the URL rather than maintaining duplicate navigation state inside the application.
-
-### PostgreSQL + SQLAlchemy
-
-PostgreSQL serves as the application's primary data store, with SQLAlchemy providing relational modeling and database access. Alembic manages schema migrations.
-
-### Reusable Design System
-
-The application's visual language is built around centralized design tokens for colors, typography, spacing, borders, shadows, and interactive states.
-
-Reusable styling patterns are applied across buttons, inputs, icons, cards, modals, navigation, and other interface elements to maintain consistency as the application grows.
 
 ---
 
@@ -132,66 +52,45 @@ Reusable styling patterns are applied across buttons, inputs, icons, cards, moda
 
 ### Board Management
 
-- Create multiple project boards
-- Edit board titles and descriptions
-- Delete boards
-- Select and persist board icons
-- Display task counts for each board
-- Navigate between individual project boards
+- Create, edit, and delete project boards
+- Customize and persist board icons
+- View task counts across boards
 
 ### Task Management
 
 - Create, edit, and delete tasks
 - Drag and drop tasks between workflow columns
-- Track task priority and due dates
-- Organize tasks with tags
-- Persist task changes to PostgreSQL
-- Scope tasks to their associated board
+- Track priorities, due dates, and tags
+- Persist and scope tasks to their associated board
 
 ### Task Discovery
 
 - Search tasks
-- Filter tasks by status
-- Filter tasks by priority
+- Filter by status and priority
 - Sort tasks
 
 ### Navigation
 
-- Application homepage
-- Boards overview page
-- Individual board pages
-- URL-driven board navigation with React Router
-- Global application navigation
-
-### Full-Stack Functionality
-
-- FastAPI REST API with layered routers, schemas, and services
-- PostgreSQL persistence
-- SQLAlchemy database access
-- Relational board and task data
-- Alembic database migrations
-- Seeded development data
+- Homepage, boards overview, and individual board routes
+- URL-driven navigation with React Router
 
 ### User Experience
 
 - Custom design system with reusable CSS tokens
-- Consistent button, input, card, and modal patterns
-- Board icon customization
+- Consistent buttons, inputs, cards, and modal patterns
 - Drag-and-drop visual feedback
 - Confirmation workflows for destructive actions
-- Cohesive navigation, homepage, boards, and Kanban interfaces
+
+### Full-Stack Functionality
+
+- FastAPI REST API with layered routers, schemas, and services
+- Relational board and task persistence in PostgreSQL
+- SQLAlchemy database access and Alembic migrations
+- Seeded development data
 
 ---
 
 ## Screenshots
-
-### Homepage
-
-<img
-  src="./screenshots/homepage.png"
-  alt="Sticky Situation Homepage"
-  width="800"
-/>
 
 ### Boards
 
@@ -232,6 +131,56 @@ Reusable styling patterns are applied across buttons, inputs, icons, cards, moda
   alt="Task Management"
   width="800"
 />
+
+---
+
+## Architecture
+
+The application follows a layered architecture that separates UI concerns, data access, HTTP handling, business logic, and persistence. Pydantic defines and validates request and response schemas at the API boundary.
+
+```text
+[ Frontend ]
+
+React Components
+        ↓
+Frontend Service Layer
+
+──────── HTTP / REST API ────────
+
+[ Backend ]
+
+FastAPI Routers
+        ↓
+Service Layer
+        ↓
+SQLAlchemy
+        ↓
+PostgreSQL
+```
+
+---
+
+## Key Technical Decisions
+
+### Frontend Service Layer
+
+Persistence is abstracted behind frontend services, allowing the application to move from local persistence to REST APIs without coupling data access directly to React components.
+
+### Backend Migration
+
+The original Express/Prisma backend was migrated to FastAPI, SQLAlchemy, Pydantic, and Alembic while preserving the frontend API contract. The previous implementation is preserved by the `v2.0.0` Git tag.
+
+### Backend Architecture
+
+FastAPI routers handle HTTP concerns, Pydantic schemas define and validate API boundaries, and service functions handle application and persistence logic through SQLAlchemy.
+
+### Relational Data Model
+
+Boards and tasks are modeled as related PostgreSQL resources, with each task belonging to a parent board. This keeps board-specific task queries explicit and provides a relational foundation for future ownership and assignment features.
+
+### Design System
+
+Centralized CSS tokens and reusable styling patterns provide consistent typography, spacing, colors, interactive states, and component styling across the application.
 
 ---
 
@@ -322,7 +271,7 @@ React/Vite normally runs at `http://localhost:5173`. PostgreSQL must remain runn
 - Protected application routes
 - User profiles and account settings
 
-### Ownership & Collaboration
+### Ownership & Task Assignment
 
 - Associate boards with their owners
 - Restrict board access based on authenticated users
@@ -350,4 +299,3 @@ React/Vite normally runs at `http://localhost:5173`. PostgreSQL must remain runn
 - Deploy the frontend and backend
 - Host the PostgreSQL database
 - Configure production environment variables
-- Prepare the application for public portfolio demonstrations
