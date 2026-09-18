@@ -5,7 +5,7 @@ import type {
 } from '../../shared/types/boards';
 import type { Task } from '../../shared/types/tasks';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:8000';
 
 /**
  * Fetches all boards from the API.

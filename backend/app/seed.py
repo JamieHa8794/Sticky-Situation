@@ -7,25 +7,25 @@ seed_boards = [
         "id": "seed-board-1",
         "title": "Website Redesign",
         "description": "Refresh the company website with updated content, navigation, and visual design.",
-        "icon": "Globe",
+        "icon": "globe",
     },
     {
         "id": "seed-board-2",
         "title": "Mobile App Launch",
         "description": "Prepare the new mobile app for beta testing and public release.",
-        "icon": "Rocket",
+        "icon": "rocket",
     },
     {
         "id": "seed-board-3",
         "title": "Q4 Marketing Campaign",
         "description": "Plan and deliver the Q4 acquisition campaign across web, email, and social.",
-        "icon": "Megaphone",
+        "icon": "megaphone",
     },
     {
         "id": "seed-board-4",
         "title": "Customer Portal",
         "description": "Improve the customer experience for billing, support, and account management.",
-        "icon": "UserRound",
+        "icon": "user-round",
     },
 ]
 

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:server": "tsx watch server/index.ts",
+    "dev:server": "cd backend && uv run uvicorn app.main:app --reload --port 8000",
+    "dev:server:express": "tsx watch server/index.ts",
     "seed": "tsx prisma/seed.ts",
     "build": "tsc -b && vite build",
     "lint": "eslint .",

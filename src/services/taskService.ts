@@ -4,7 +4,7 @@ import type {
   CreateTaskInput,
 } from '../../shared/types/tasks';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:8000';
 
 /**
  * Deletes a task by its ID.
