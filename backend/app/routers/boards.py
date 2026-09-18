@@ -3,9 +3,22 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.schemas import BoardSummaryResponse, BoardResponse, BoardCreate, BoardUpdate
-from app.models import Board
-from app.services import get_boards, get_board, create_board, update_board, delete_board
+from app.schemas import (
+    BoardSummaryResponse,
+    BoardResponse,
+    BoardCreate,
+    BoardUpdate,
+    TaskResponse,
+)
+from app.models import Board, Task
+from app.services import (
+    get_boards,
+    get_board,
+    create_board,
+    update_board,
+    delete_board,
+    get_tasks_for_board,
+)
 
 router = APIRouter(prefix="/boards", tags=["boards"])
 
@@ -94,3 +107,17 @@ def delete_board_endpoint(board_id: str, session: Session = Depends(get_db)) -> 
         )
 
     return None
+
+
+@router.get("/{board_id}/tasks", response_model=list[TaskResponse])
+def get_board_tasks(board_id: str, session: Session = Depends(get_db)) -> list[Task]:
+    board = get_board(session, board_id)
+
+    if board is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Board not found"
+        )
+
+    tasks = get_tasks_for_board(session, board_id)
+
+    return tasks
