@@ -2,7 +2,7 @@ from datetime import datetime
 from uuid import uuid4
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Text, func
+from sqlalchemy import Text, func, ForeignKey
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -10,6 +10,7 @@ from app.database import Base
 
 if TYPE_CHECKING:
     from app.models.task import Task
+    from app.models.user import User
 
 
 class Board(Base):
@@ -44,3 +45,15 @@ class Board(Base):
         cascade="all, delete",
         passive_deletes=True,
     )
+
+    user_id: Mapped[str] = mapped_column(
+        Text,
+        ForeignKey(
+            "users.id",
+            name="boards_user_id_fkey",
+            ondelete="CASCADE",
+        ),
+        nullable=False,
+    )
+
+    user: Mapped["User"] = relationship(back_populates="boards")

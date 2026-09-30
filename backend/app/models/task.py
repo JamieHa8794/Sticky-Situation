@@ -61,7 +61,10 @@ class Task(Base):
     )
     board_id: Mapped[str] = mapped_column(
         Text,
-        ForeignKey("boards.id", ondelete="CASCADE"),
+        ForeignKey(
+            "boards.id",
+            ondelete="CASCADE",
+        ),
         nullable=False,
     )
 
